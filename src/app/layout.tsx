@@ -18,8 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <NavbarSearch />
+      <body className={inter.className + "overscroll-x-none"}>
+        <NavbarSearch type="home" />
         {children}
       </body>
     </html>

@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 
 export function InputWithButton() {
   return (
-    <div className="flex w-full max-w-sm items-center h-[40px]  border-gray-400">
+    <div className="flex w-[500px] max-w-sm items-center h-[40px]  border-gray-400">
       <Input
         placeholder="Search"
         className="rounded-none focus:outline-none h-full"
