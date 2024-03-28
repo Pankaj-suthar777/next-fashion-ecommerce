@@ -3,8 +3,12 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import NavbarSearch from "@/components/NavbarSearch";
 import "remixicon/fonts/remixicon.css";
+import Footer from "@/components/Footer";
 
-const inter = Poppins({ subsets: ["latin"], weight: "200" });
+const inter = Poppins({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "600", "500", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,6 +25,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NavbarSearch type="home" />
         {children}
+        <Footer />
       </body>
     </html>
   );

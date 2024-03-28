@@ -29,10 +29,7 @@ export function CarouselHome() {
             <div className="">
               <Card>
                 <CardContent className="flex items-center justify-center h-[500px] relative">
-                  <img
-                    src="https://s3b.cashify.in/gpro/uploads/2022/02/24181210/Upcoming-Sale_on-Myntra.jpg"
-                    className="contain h-[500px]"
-                  />
+                  <img src="/assets/c1.jpg" className="contain h-[500px]" />
                   <div className="absolute bottom-7 right-16">
                     <CarouselPrevious className="text-black font-bold rounded-none" />
                     <CarouselNext className="text-black font-bold rounded-none" />
