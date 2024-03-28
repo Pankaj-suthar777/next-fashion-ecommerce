@@ -8,8 +8,7 @@ const BrandRow = () => {
         className="h-32 "
       />
       <img
-        src="https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png
-"
+        src="https://logos-world.net/wp-content/uploads/2020/04/Nike-Logo.png"
         className="h-32 "
       />
       <img

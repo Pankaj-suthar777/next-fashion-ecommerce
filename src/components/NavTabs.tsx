@@ -13,7 +13,7 @@ const NavTabs = () => {
       <Link className="text-xs font-semibold" href="/">
         Features
       </Link>
-      <Link className="text-xs font-semibold" href="/">
+      <Link className="text-xs font-semibold" href="/productlist">
         Collections
       </Link>
     </div>
