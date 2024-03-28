@@ -28,7 +28,7 @@ export function CarouselHome() {
           <CarouselItem key={index}>
             <div className="">
               <Card>
-                <CardContent className="flex items-center justify-center p-6 h-[500px] relative">
+                <CardContent className="flex items-center justify-center h-[500px] relative">
                   <img
                     src="https://s3b.cashify.in/gpro/uploads/2022/02/24181210/Upcoming-Sale_on-Myntra.jpg"
                     className="contain h-[500px]"
