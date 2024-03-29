@@ -163,7 +163,10 @@ const PaginationSection = ({
             key={index}
             className={currentPage === page ? "bg-neutral-100 rounded-md" : ""}
           >
-            <PaginationLink onClick={() => setCurrentPage(page)}>
+            <PaginationLink
+              onClick={() => setCurrentPage(page)}
+              className="cursor-pointer"
+            >
               {page}
             </PaginationLink>
           </PaginationItem>
