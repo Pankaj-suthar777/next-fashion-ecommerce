@@ -52,8 +52,8 @@ const page = () => {
             <RatingFilter items={ratingArray} />
           </div>
           <div className="col-span-5 grid grid-cols-2 gap-8">
-            {CategoriesData.map((item) => (
-              <CateegoriePageComponent item={item} />
+            {CategoriesData.map((item, index) => (
+              <CateegoriePageComponent key={index} item={item} />
             ))}
           </div>
         </div>

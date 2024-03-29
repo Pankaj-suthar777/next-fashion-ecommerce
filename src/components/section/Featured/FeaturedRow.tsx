@@ -46,6 +46,7 @@ const FeaturedRow = () => {
       <div className="grid grid-cols-4 grid-rows-3  gap-x-2 gap-y-2 mb-[200px]">
         {productData.map((item) => (
           <div
+            key={item.id}
             className={`p-4  bg-slate-100 ${
               selcted === item.id && "border border-black"
             } flex flex-col items-center justify-center h-[330px]`}

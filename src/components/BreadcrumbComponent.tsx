@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -15,19 +16,19 @@ export interface BreadcrumbDemoProps {
 
 export function BreadcrumbDemo({ items }: BreadcrumbDemoProps) {
   return (
-    <Breadcrumb>
-      <BreadcrumbList>
+    <Breadcrumb className="w-full flex flex-row">
+      <BreadcrumbList className="flex flex-row">
         <BreadcrumbItem>
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {items.map((item, index) => (
-          <div key={index}>
+          <React.Fragment key={index}>
             <BreadcrumbItem>
               <BreadcrumbLink href={item.href}>{item.name}</BreadcrumbLink>
             </BreadcrumbItem>
             {items.length !== index + 1 && <BreadcrumbSeparator />}
-          </div>
+          </React.Fragment>
         ))}
       </BreadcrumbList>
     </Breadcrumb>
