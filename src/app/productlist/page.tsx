@@ -41,37 +41,36 @@ const ProductList = () => {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
   return (
-    <div className="w-screen flex justify-center">
+    <div className="w-screen flex justify-center mb-[150px]">
       <div className="xl:w-[80%] xl:px-0 px-12 ">
         <NavbarSearch type="search" />
         <div className="flex flex-col gap-y-8 mt-10 ">
-          <BreadcrumbDemo firstLink="/productlist" firstText="Product List" />
+          <BreadcrumbDemo
+            items={[{ href: "/productlist", name: "Product List" }]}
+          />
           <h1 className="font-semibold text-xl text-center tracking-wider">
             Product List
           </h1>
         </div>
 
-        {/* <div className="flex justify-end items-center px-12">
-        <span className="text-slate-500">Sort by:</span>{" "}
-        <DropdownMenuDemo
-          items={[{ name: "Low To High", onClick: () => {} }]}
-          title="Newst Items"
-        />
-      </div> */}
-
         <div className="grid grid-cols-6">
           <div className="row-span-4 col-span-1">
             <Cartegories />
           </div>
-          <div className="flex items-center col-span-5 ml-[50px] mt-12">
-            <span className="text-slate-500">Sort by:</span>{" "}
-            <DropdownMenuDemo
-              items={[
-                { name: "Low To High", onClick: () => {} },
-                { name: "High To Low", onClick: () => {} },
-              ]}
-              title="Newst Items"
-            />
+          <div className="flex items-center col-span-5 ml-[50px] mt-12 justify-between">
+            <p className="font-normal text-gray-500">
+              Total Products : {productData.length}
+            </p>
+            <div className="mx-8">
+              <span className="text-slate-500">Sort by:</span>{" "}
+              <DropdownMenuDemo
+                items={[
+                  { name: "Low To High", onClick: () => {} },
+                  { name: "High To Low", onClick: () => {} },
+                ]}
+                title="Newst Items"
+              />
+            </div>
           </div>
           {productData.map((item) => (
             <motion.div

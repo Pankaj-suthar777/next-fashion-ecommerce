@@ -8,7 +8,7 @@ import WhyChooseUs from "@/components/section/WhyChooseUs/WhyChooseUs";
 
 export default function Home() {
   return (
-    <>
+    <div>
       <NavbarSearch type="home" />
       <div className="flex flex-col items-center  overscroll-x-none h-full">
         <div className="mb-10">
@@ -23,6 +23,6 @@ export default function Home() {
           <BrandRow />
         </div>
       </div>
-    </>
+    </div>
   );
 }

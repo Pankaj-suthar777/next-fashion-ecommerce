@@ -10,21 +10,52 @@ const CategoriesFilter = ({
     id: number;
   }[];
 }) => {
+  const [viewMore, setViewMore] = useState(false);
   const [selectedCate, setSelectedCate] = useState(1);
-  return items.map((item) => {
-    const isSelected = selectedCate === item.id;
-    return (
+
+  const toggleView = () => {
+    setViewMore(!viewMore);
+  };
+
+  const handleCategoryClick = (id) => {
+    setSelectedCate(id);
+  };
+
+  const renderCategories = () => {
+    const categories = viewMore ? items : items.slice(0, 4);
+
+    return categories.map((item) => (
       <div
+        key={item.id}
         className="flex gap-x-6 py-3 cursor-pointer"
-        onClick={() => setSelectedCate(item.id)}
+        onClick={() => handleCategoryClick(item.id)}
       >
-        <img src={item.image} className={`h-6 w-6 `} />
-        <p className={`${isSelected ? "text-black" : "text-gray-400"} `}>
+        <img src={item.image} className={`h-6 w-6`} />
+        <p
+          className={`${
+            selectedCate === item.id ? "text-black" : "text-gray-400"
+          }`}
+        >
           {item.name}
         </p>
       </div>
-    );
-  });
+    ));
+  };
+
+  return (
+    <>
+      <div>{renderCategories()}</div>
+      <div className="flex gap-x-2 cursor-pointer items-center justify-start">
+        <i
+          className="ri-arrow-drop-down-line text-3xl text-gray-400 mt-1 hover:text-black"
+          onClick={toggleView}
+        ></i>
+        <p className="text-gray-400 hover:text-black" onClick={toggleView}>
+          {viewMore ? "View Less" : "View More"}
+        </p>
+      </div>
+    </>
+  );
 };
 
 export default CategoriesFilter;

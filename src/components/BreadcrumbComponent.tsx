@@ -7,18 +7,13 @@ import {
 } from "@/components/ui/breadcrumb";
 
 export interface BreadcrumbDemoProps {
-  firstText: string;
-  firstLink: string;
-  secondText?: string;
-  secondLink?: string;
+  items: {
+    name: string;
+    href: string;
+  }[];
 }
 
-export function BreadcrumbDemo({
-  firstText,
-  firstLink,
-  secondText,
-  secondLink,
-}: BreadcrumbDemoProps) {
+export function BreadcrumbDemo({ items }: BreadcrumbDemoProps) {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -26,17 +21,14 @@ export function BreadcrumbDemo({
           <BreadcrumbLink href="/">Home</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
-        <BreadcrumbItem>
-          <BreadcrumbLink href={firstLink}>{firstText}</BreadcrumbLink>
-        </BreadcrumbItem>
-        {secondLink && secondText && (
+        {items.map((item, index) => (
           <>
-            <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={secondLink}>{secondText}</BreadcrumbLink>
+              <BreadcrumbLink href={item.href}>{item.name}</BreadcrumbLink>
             </BreadcrumbItem>
+            {items.length !== index + 1 && <BreadcrumbSeparator />}
           </>
-        )}
+        ))}
       </BreadcrumbList>
     </Breadcrumb>
   );
