@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import NavbarSearch from "@/components/NavbarSearch";
 import "remixicon/fonts/remixicon.css";
 import Footer from "@/components/Footer";
 

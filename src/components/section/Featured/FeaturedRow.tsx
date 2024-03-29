@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const productData = [
@@ -38,7 +39,9 @@ const FeaturedRow = () => {
     <>
       <div className="flex justify-between">
         <h1 className="text-xl font-bold">Featured</h1>
-        <h1 className="font-semibold text-sm">View all</h1>
+        <h1 className="font-semibold text-sm">
+          <Link href="/productlist">View all</Link>
+        </h1>
       </div>
       <div className="grid grid-cols-4 grid-rows-3  gap-x-2 gap-y-2 mb-[200px]">
         {productData.map((item) => (

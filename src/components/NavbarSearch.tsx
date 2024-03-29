@@ -17,6 +17,9 @@ const NavbarSearch = ({ type }: { type: string }) => {
           {type === "home" && <NavTabs />}
         </div>
         <div className="flex items-center gap-x-6">
+          {type !== "search" && (
+            <i className="ri-search-line text-xl text-black"></i>
+          )}
           <i className="ri-shopping-cart-2-line text-xl text-black"></i>
           <i className="ri-notification-2-line text-xl text-black"></i>
           <Button className="rounded-none text-xs">Login</Button>

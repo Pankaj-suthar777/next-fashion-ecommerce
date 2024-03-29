@@ -1,7 +1,11 @@
+"use client";
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/NavbarSearch";
 import { Button } from "@/components/ui/button";
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { DropdownMenuDemo } from "@/components/DropDown";
+import Cartegories from "./_component/Cartegories";
 
 const productData = [
   {
@@ -34,33 +38,69 @@ const productData = [
 ];
 
 const ProductList = () => {
-  return (
-    <>
-      <NavbarSearch type="search" />
-      <div className="flex flex-col container gap-y-8 mt-5">
-        <BreadcrumbDemo firstLink="/productlist" firstText="Product List" />
-        <h1 className="font-bold text-xl text-center">Product List</h1>
-      </div>
-      <div className="grid grid-cols-6">
-        <div className="row-span-4"></div>
-        {productData.map((item) => (
-          <div
-            className={`p-4  flex flex-col items-center justify-center h-[330px]`}
-          >
-            <img
-              className=" h-[150px] w-[150px] mb-2 object-cover"
-              src={item.img}
-            />
-            <div className="flex flex-col justify-center items-center mx-auto">
-              <span className="font-semibold">Purple Sweatshirt</span>
-              <span className="text-xs mt-1">$400</span>
+  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
 
-              <Button className="rounded-none mt-4 text-xs">Add to Cart</Button>
-            </div>
+  return (
+    <div className="w-screen flex justify-center">
+      <div className="xl:w-[80%] xl:px-0 px-12 ">
+        <NavbarSearch type="search" />
+        <div className="flex flex-col gap-y-8 mt-10 ">
+          <BreadcrumbDemo firstLink="/productlist" firstText="Product List" />
+          <h1 className="font-semibold text-xl text-center tracking-wider">
+            Product List
+          </h1>
+        </div>
+
+        {/* <div className="flex justify-end items-center px-12">
+        <span className="text-slate-500">Sort by:</span>{" "}
+        <DropdownMenuDemo
+          items={[{ name: "Low To High", onClick: () => {} }]}
+          title="Newst Items"
+        />
+      </div> */}
+
+        <div className="grid grid-cols-6">
+          <div className="row-span-4 col-span-1">
+            <Cartegories />
           </div>
-        ))}
+          <div className="flex items-center col-span-5 ml-[50px] mt-12">
+            <span className="text-slate-500">Sort by:</span>{" "}
+            <DropdownMenuDemo
+              items={[
+                { name: "Low To High", onClick: () => {} },
+                { name: "High To Low", onClick: () => {} },
+              ]}
+              title="Newst Items"
+            />
+          </div>
+          {productData.map((item) => (
+            <motion.div
+              key={item.id}
+              className={`p-4  flex flex-col items-center justify-center h-[280px]`}
+              whileHover={{ scale: 1.05 }}
+              transition={{ duration: 0.3 }} // Adjust the duration here
+              onMouseEnter={() => setHoveredProductId(item.id)}
+              onMouseLeave={() => setHoveredProductId(null)}
+            >
+              <img
+                className=" h-[150px] w-[150px] mb-2 object-cover"
+                src={item.img}
+              />
+              <div className="flex flex-col justify-center items-center mx-auto">
+                <span className="font-semibold">Purple Sweatshirt</span>
+                <span className="text-xs mt-1">$400</span>
+
+                {hoveredProductId === item.id && (
+                  <Button className="rounded-none mt-4 text-xs">
+                    Add to Cart
+                  </Button>
+                )}
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
