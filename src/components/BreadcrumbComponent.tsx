@@ -22,12 +22,12 @@ export function BreadcrumbDemo({ items }: BreadcrumbDemoProps) {
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         {items.map((item, index) => (
-          <>
+          <div key={index}>
             <BreadcrumbItem>
               <BreadcrumbLink href={item.href}>{item.name}</BreadcrumbLink>
             </BreadcrumbItem>
             {items.length !== index + 1 && <BreadcrumbSeparator />}
-          </>
+          </div>
         ))}
       </BreadcrumbList>
     </Breadcrumb>

@@ -6,6 +6,15 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { DropdownMenuDemo } from "@/components/DropDown";
 import Cartegories from "./_component/Cartegories";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 const productData = [
   {
@@ -39,10 +48,16 @@ const productData = [
 
 const ProductList = () => {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const lastPostIndex = currentPage * itemsPerPage;
+  const firstPostIndex = lastPostIndex - itemsPerPage;
+  const currentPosts = productData.slice(firstPostIndex, lastPostIndex);
 
   return (
-    <div className="w-screen flex justify-center mb-[150px]">
-      <div className="xl:w-[80%] xl:px-0 px-12 ">
+    <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
+      <div className="xl:w-[80%] xl:px-0 px-12 mb-8">
         <NavbarSearch type="search" />
         <div className="flex flex-col gap-y-8 mt-10 ">
           <BreadcrumbDemo
@@ -72,10 +87,10 @@ const ProductList = () => {
               />
             </div>
           </div>
-          {productData.map((item) => (
+          {currentPosts.map((item) => (
             <motion.div
               key={item.id}
-              className={`p-4  flex flex-col items-center justify-center h-[280px]`}
+              className={`p-4 cursor-pointer flex flex-col items-center justify-center h-[280px]`}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }} // Adjust the duration here
               onMouseEnter={() => setHoveredProductId(item.id)}
@@ -99,7 +114,66 @@ const ProductList = () => {
           ))}
         </div>
       </div>
+      <PaginationSection
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        totalItems={productData.length}
+        setCurrentPage={setCurrentPage}
+      />
     </div>
+  );
+};
+
+const PaginationSection = ({
+  totalItems,
+  itemsPerPage,
+  currentPage,
+  setCurrentPage,
+}: {
+  totalItems: any;
+  itemsPerPage: any;
+  currentPage: any;
+  setCurrentPage: any;
+}) => {
+  let pages = [];
+  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+    pages.push(i);
+  }
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationPrevious
+          onClick={() => handlePrevPage()}
+          className="cursor-pointer"
+        />
+        {pages.map((page, index) => (
+          <PaginationItem
+            key={index}
+            className={currentPage === page ? "bg-neutral-100 rounded-md" : ""}
+          >
+            <PaginationLink onClick={() => setCurrentPage(page)}>
+              {page}
+            </PaginationLink>
+          </PaginationItem>
+        ))}
+        <PaginationNext
+          onClick={() => handleNextPage()}
+          className="cursor-pointer"
+        />
+      </PaginationContent>
+    </Pagination>
   );
 };
 

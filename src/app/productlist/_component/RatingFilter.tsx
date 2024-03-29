@@ -16,7 +16,7 @@ const RatingFilter = ({
       {items.map((item, index) => {
         const isInclude = selected.includes(item.id);
         return (
-          <div className="flex gap-4 items-center">
+          <div key={index} className="flex gap-4 items-center">
             <Checkbox
               id={item.id.toString()}
               onClick={() => {

@@ -34,14 +34,14 @@ export function DropdownMenuDemo({
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
           {items.map((item, index) => (
-            <>
+            <div key={index}>
               <DropdownMenuItem onClick={() => item.onClick()}>
                 {/* <User className="mr-2 h-4 w-4" /> */}
                 <span>{item.name}</span>
                 {/* <DropdownMenuShortcut></DropdownMenuShortcut> */}
               </DropdownMenuItem>
               {items.length === index + 1 ? null : <DropdownMenuSeparator />}
-            </>
+            </div>
           ))}
         </DropdownMenuGroup>
         {/* <DropdownMenuSeparator />
