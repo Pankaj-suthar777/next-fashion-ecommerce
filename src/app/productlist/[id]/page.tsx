@@ -1,5 +1,5 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
-import NavbarSearch from "@/components/NavbarSearch";
+import NavbarSearch from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import React from "react";

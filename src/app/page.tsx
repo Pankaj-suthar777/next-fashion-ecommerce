@@ -1,5 +1,5 @@
 import { CarouselHome } from "@/components/CarouselHome";
-import NavbarSearch from "@/components/NavbarSearch";
+import NavbarSearch from "@/components/Navbar";
 import CategoriesRow from "@/components/section/Categories/CategoriesRow";
 import FeaturedRow from "@/components/section/Featured/FeaturedRow";
 import NewArrivalsRow from "@/components/section/NewArrivals/NewArrivalsRow";

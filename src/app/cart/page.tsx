@@ -1,5 +1,5 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
-import NavbarSearch from "@/components/NavbarSearch";
+import NavbarSearch from "@/components/Navbar";
 import React from "react";
 import ProgressCheckout from "./_component/ProgressCheckout";
 import CartProducts from "./_component/CartProducts";

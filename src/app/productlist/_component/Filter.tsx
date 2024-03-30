@@ -37,7 +37,7 @@ const ratingArray = [
   { id: 4, star: 4, onClick: () => {} },
 ];
 
-const Cartegories = () => {
+const Filter = () => {
   return (
     <div>
       <h1 className="text-semibold text-lg ">Categories</h1>
@@ -53,4 +53,4 @@ const Cartegories = () => {
   );
 };
 
-export default Cartegories;
+export default Filter;

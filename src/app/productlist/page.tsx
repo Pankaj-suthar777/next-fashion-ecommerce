@@ -1,11 +1,11 @@
 "use client";
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
-import NavbarSearch from "@/components/NavbarSearch";
+import NavbarSearch from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { DropdownMenuDemo } from "@/components/DropDown";
-import Cartegories from "./_component/Cartegories";
+import Filter from "./_component/Filter";
 import {
   Pagination,
   PaginationContent,
@@ -70,7 +70,7 @@ const ProductList = () => {
 
         <div className="grid grid-cols-6">
           <div className="row-span-4 col-span-1">
-            <Cartegories />
+            <Filter />
           </div>
           <div className="flex items-center col-span-5 ml-[50px] mt-12 justify-between">
             <p className="font-normal text-gray-500">

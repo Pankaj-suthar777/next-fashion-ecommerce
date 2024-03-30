@@ -3,7 +3,7 @@ import React from "react";
 import PriceFilter from "../productlist/_component/PriceFilter";
 import { Separator } from "@/components/ui/separator";
 import RatingFilter from "../productlist/_component/RatingFilter";
-import NavbarSearch from "@/components/NavbarSearch";
+import NavbarSearch from "@/components/Navbar";
 import CateegoriePageComponent from "./_component/CateegoriePageComponent";
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 

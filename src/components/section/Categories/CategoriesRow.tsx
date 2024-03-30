@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import CategorieSquare from "./CategorieSquare";
+import Link from "next/link";
 
 const CategoriesData = [
   "https://cdn-icons-png.flaticon.com/128/3129/3129449.png",
@@ -17,7 +18,9 @@ const CategoriesRow = () => {
     <div className="grid grid-cols-6 xl:gap-x-20 lg:gap-x-14 md:gap-x-10 sm:gap-x-4 gap-x-2">
       <div className="flex justify-between col-span-6 mb-10">
         <h1 className="text-xl font-bold">Categories</h1>
-        <h1 className="font-semibold text-sm">View all</h1>
+        <h1 className="font-semibold text-sm cursor-pointer">
+          <Link href="/categories">View all</Link>
+        </h1>
       </div>
       {CategoriesData.map((item, index) => (
         <CategorieSquare

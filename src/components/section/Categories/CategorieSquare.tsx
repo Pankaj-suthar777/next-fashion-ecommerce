@@ -19,7 +19,7 @@ const CategorieSquare = ({
     <div
       className={`flex justify-center items-center ${
         selectedCategories === index ? "bg-gray-200 " : "bg-white"
-      }  h-[80px]  lg:h-[100px] text-black `}
+      }  h-[80px] lg:h-[100px] text-black cursor-pointer`}
       onClick={() => setSelectedCategories(index)}
     >
       {png ? (
