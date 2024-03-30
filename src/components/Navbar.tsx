@@ -3,15 +3,7 @@ import { InputWithButton } from "./InputWithButton";
 import { Button } from "./ui/button";
 import NavTabs from "./NavTabs";
 import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import NavbarDropdown from "./NavbarDropdown";
 
 const NavbarSearch = ({ type }: { type: string }) => {
   return (
@@ -35,22 +27,7 @@ const NavbarSearch = ({ type }: { type: string }) => {
           </Link>
           <i className="ri-notification-2-line text-xl text-black cursor-pointer"></i>
           {/* <Button className="rounded-none text-xs cursor-pointer">Login</Button> */}
-          <DropdownMenu>
-            <DropdownMenuTrigger className="border-none outline-none">
-              <Avatar className="cursor-pointer">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>CN</AvatarFallback>
-              </Avatar>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Team</DropdownMenuItem>
-              <DropdownMenuItem>Subscription</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <NavbarDropdown />
         </div>
       </div>
     </nav>

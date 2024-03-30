@@ -46,10 +46,17 @@ const CategoriesFilter = ({
     <>
       <div>{renderCategories()}</div>
       <div className="flex gap-x-2 cursor-pointer items-center justify-start">
-        <i
-          className="ri-arrow-drop-down-line text-3xl text-gray-400 mt-1 hover:text-black"
-          onClick={toggleView}
-        ></i>
+        {viewMore ? (
+          <i
+            className="ri-arrow-drop-up-line text-3xl text-gray-400 mt-1 hover:text-black"
+            onClick={toggleView}
+          ></i>
+        ) : (
+          <i
+            className="ri-arrow-drop-down-line text-3xl text-gray-400 mt-1 hover:text-black"
+            onClick={toggleView}
+          ></i>
+        )}
         <p className="text-gray-400 hover:text-black" onClick={toggleView}>
           {viewMore ? "View Less" : "View More"}
         </p>
