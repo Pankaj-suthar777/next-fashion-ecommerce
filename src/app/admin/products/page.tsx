@@ -39,7 +39,7 @@ const page = () => {
             />
           </div>
           <div className="mt-[50px]">
-            <div className="flex justify-between mb-[50px]">
+            <div className="flex justify-between mb-[50px] items-center">
               <h1 className="text-3xl font-normal">Products</h1>
               <DrawerTrigger className="px-4 py-2 flex gap-2 items-center bg-black text-white rounded-md">
                 <i className="ri-add-line text-lg"></i>Add Product
@@ -83,16 +83,7 @@ const page = () => {
                         id="Description"
                       />
                     </div>
-                    <div className="mt-4 w-full">
-                      <InputWithLabel
-                        LabelStyle="text-black"
-                        InputStyle=""
-                        id="price"
-                        label="Price"
-                        placeholder="Enter price"
-                        type="number"
-                      />
-                    </div>
+
                     <div className="mt-4 w-full">
                       <InputWithLabel
                         LabelStyle="text-black"
@@ -103,7 +94,15 @@ const page = () => {
                         type="text"
                       />
                     </div>
-                    <div className="mt-4 w-full">
+                    <div className="mt-4 w-full flex gap-4">
+                      <InputWithLabel
+                        LabelStyle="text-black"
+                        InputStyle=""
+                        id="price"
+                        label="Price"
+                        placeholder="Enter price"
+                        type="number"
+                      />
                       <InputWithLabel
                         LabelStyle="text-black"
                         InputStyle=""

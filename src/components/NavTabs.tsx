@@ -10,11 +10,11 @@ const NavTabs = () => {
       <Link className="text-xs font-semibold" href="/new-arrival">
         New Arrival
       </Link>
-      <Link className="text-xs font-semibold" href="/fetures">
-        Features
-      </Link>
       <Link className="text-xs font-semibold" href="/productlist">
         Collections
+      </Link>
+      <Link className="text-xs font-semibold" href="/contact-us">
+        Contact us
       </Link>
     </div>
   );

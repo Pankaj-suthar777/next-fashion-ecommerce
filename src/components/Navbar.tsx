@@ -8,7 +8,7 @@ import NavbarDropdown from "./NavbarDropdown";
 const NavbarSearch = ({ type }: { type: string }) => {
   return (
     <nav className="text-black py-4 overscroll-x-none">
-      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <div className="max-w-6xl  mx-auto px-4 flex justify-between items-center">
         <div className="text-xl font-bold w-[148px] cursor-pointer">
           {/* Your logo component */}
           <Link href="/">Logo</Link>

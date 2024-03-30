@@ -28,9 +28,9 @@ const WhyChooseUs = () => {
   return (
     <div className="">
       <div className="w-full">
-        <div className="font-bold text-xl">Why Choose Us</div>
+        <div className="font-bold sm:text-xl text-sm">Why Choose Us</div>
       </div>
-      <div className="bg-slate-100 mt-8 grid grid-cols-4 gap-x-16 px-12 py-6">
+      <div className="bg-slate-100 mt-8 grid md:grid-cols-4 grid-cols-2 gap-x-16 px-12 py-6">
         <Card
           para="This free shipping only for selected region"
           title="Free Delivery"

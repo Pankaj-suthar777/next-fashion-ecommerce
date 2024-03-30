@@ -15,7 +15,7 @@ export default function Home() {
           <CarouselHome />
         </div>
 
-        <div className="xl:w-[75%] xl:px-0 px-12 w-full mt-[20px] space-y-16">
+        <div className="xl:w-[75%] xl:px-0 px-4 w-full sm:mt-[20px] mt-[10px] space-y-8 sm:space-y-16 ">
           <CategoriesRow />
           <NewArrivalsRow />
           <FeaturedRow />

@@ -1,35 +1,30 @@
 import React from "react";
 
 const CategorieSquare = ({
-  index,
-  icon,
-  png,
+  item,
   classNameImage,
   selectedCategories,
   setSelectedCategories,
 }: {
-  index: number;
   classNameImage?: string;
-  icon?: string;
-  png?: string;
+  item: {
+    img: string;
+    name: string;
+  };
   setSelectedCategories: Function;
-  selectedCategories: number;
+  selectedCategories: string;
 }) => {
   return (
     <div
       className={`flex justify-center items-center ${
-        selectedCategories === index ? "bg-gray-200 " : "bg-white"
+        selectedCategories === item.name ? "bg-gray-200 " : "bg-white"
       }  h-[80px] lg:h-[100px] text-black cursor-pointer`}
-      onClick={() => setSelectedCategories(index)}
+      onClick={() => setSelectedCategories(item.name)}
     >
-      {png ? (
-        <img
-          src={png}
-          className={`h-12 w-12 text-white  bg-transparent ${classNameImage}`}
-        />
-      ) : (
-        <i className={`${icon}  lg:text-3xl text-xl`}></i>
-      )}
+      <img
+        src={item.img}
+        className={`sm:h-12 sm:w-12 h-8 w-8 text-white  bg-transparent ${classNameImage}`}
+      />
     </div>
   );
 };

@@ -26,17 +26,22 @@ export function CarouselHome() {
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
-            <div className="">
-              <Card>
-                <CardContent className="flex items-center justify-center h-[500px] relative">
-                  <img src="/assets/c1.jpg" className="contain h-[500px]" />
-                  <div className="absolute bottom-7 right-16">
-                    <CarouselPrevious className="text-black font-bold rounded-none" />
-                    <CarouselNext className="text-black font-bold rounded-none" />
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <Card className="flex items-center justify-center">
+              <CardContent className="flex items-center justify-center lg:h-[500px] relative">
+                <img
+                  src="/assets/c1.jpg"
+                  className="contain h-[500px] lg:block hidden"
+                />
+                <img
+                  src="https://akm-img-a-in.tosshub.com/businesstoday/images/story/202109/242473827_10160157467293221_2645921924837005982_n-sixteen_nine.jpg"
+                  className="object-cover h-full w-full lg:hidden block"
+                />
+                <div className="absolute bottom-7 right-16">
+                  <CarouselPrevious className="text-black font-bold rounded-none" />
+                  <CarouselNext className="text-black font-bold rounded-none" />
+                </div>
+              </CardContent>
+            </Card>
           </CarouselItem>
         ))}
       </CarouselContent>

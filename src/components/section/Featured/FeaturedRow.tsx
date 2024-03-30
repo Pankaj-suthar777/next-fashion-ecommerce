@@ -38,18 +38,18 @@ const FeaturedRow = () => {
   return (
     <>
       <div className="flex justify-between">
-        <h1 className="text-xl font-bold">Featured</h1>
-        <h1 className="font-semibold text-sm">
+        <h1 className="sm:text-xl text-sm font-bold">Featured</h1>
+        <h1 className="font-semibold sm:text-sm cursor-pointer text-xs">
           <Link href="/productlist">View all</Link>
         </h1>
       </div>
-      <div className="grid grid-cols-4 grid-rows-3  gap-x-2 gap-y-2 mb-[200px]">
+      <div className="grid sm:grid-cols-4 grid-cols-2 grid-rows-3  gap-x-2 gap-y-2 mb-[200px]">
         {productData.map((item) => (
           <div
             key={item.id}
-            className={`p-4  bg-slate-100 ${
+            className={`sm:p-4 p-2  bg-slate-100 ${
               selcted === item.id && "border border-black"
-            } flex flex-col items-center justify-center h-[330px]`}
+            } flex flex-col items-center justify-center sm:h-[330px] h-[270px]`}
             onClick={() => setSelected(item.id)}
           >
             <img
@@ -57,10 +57,12 @@ const FeaturedRow = () => {
               src={item.img}
             />
             <div className="flex flex-col justify-center items-center mx-auto">
-              <span className="font-semibold">Purple Sweatshirt</span>
+              <span className="font-semibold sm:text-lg text-xs">
+                Purple Sweatshirt
+              </span>
               <span className="text-xs mt-1">$400</span>
               {selcted === item.id && (
-                <Button className="rounded-none mt-4 text-sm">
+                <Button className="rounded-none mt-4 text-sm ">
                   Add to Cart
                 </Button>
               )}

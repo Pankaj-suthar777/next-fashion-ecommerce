@@ -1,10 +1,11 @@
+import Link from "next/link";
 import React from "react";
 
 const Footer = () => {
   return (
     <div className="flex flex-col p-12 bg-slate-700 ">
-      <div className=" grid grid-cols-4">
-        <div className="flex flex-col items-center">
+      <div className="grid grid-cols-4">
+        <div className="flex flex-col items-center md:col-span-1 col-span-2">
           <div>
             <h1 className="text-white font-semibold mb-5 cursor-pointer">
               Logo
@@ -22,18 +23,26 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center md:col-span-1 col-span-2">
           <div>
-            <h1 className="text-white font-semibold mb-5">Product Link</h1>
+            <h1 className="text-white font-semibold mb-5 ">Product Link</h1>
             <div className="flex flex-col space-y-4 text-white">
-              <p className="font-light text-xs cursor-pointer">Categories</p>
-              <p className="font-light text-xs cursor-pointer">New Arrival</p>
-              <p className="font-light text-xs cursor-pointer">Features</p>
-              <p className="font-light text-xs cursor-pointer">Collections</p>
+              <p className="font-light text-xs cursor-pointer">
+                <Link href="/categories">Categories</Link>
+              </p>
+              <p className="font-light text-xs cursor-pointer">
+                <Link href="/new-arrival">New Arrival</Link>
+              </p>
+              <p className="font-light text-xs cursor-pointer">
+                <Link href={"/contact-us"}>Contact Us</Link>
+              </p>
+              <p className="font-light text-xs cursor-pointer">
+                <Link href={"/productlist"}>Collections</Link>
+              </p>
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center md:mt-0 mt-10 md:col-span-1 col-span-2">
           <div>
             <h1 className="text-white font-semibold mb-5 ">Support</h1>
             <div className="flex flex-col space-y-4 text-white ">
@@ -50,7 +59,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex  flex-col items-center">
+        <div className="flex  flex-col items-center md:mt-0 mt-10 md:col-span-1 col-span-2">
           <div>
             <h1 className="text-white font-semibold mb-4">Get In Touch</h1>
             <div className="flex gap-x-4 text-white">

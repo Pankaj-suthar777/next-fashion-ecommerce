@@ -15,7 +15,7 @@ const NavbarDropdown = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="border-none outline-none">
-        <Avatar className="cursor-pointer">
+        <Avatar className="cursor-pointer h-8 w-8 sm:h-10 sm:w-10">
           <AvatarImage src="https://github.com/shadcn.png" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
