@@ -27,7 +27,7 @@ export function CarouselHome() {
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <Card className="flex items-center justify-center">
-              <CardContent className="flex items-center justify-center lg:h-[500px] relative">
+              <CardContent className="flex items-center justify-center lg:h-[500px] p-0 relative">
                 <img
                   src="/assets/c1.jpg"
                   className="contain h-[500px] lg:block hidden"

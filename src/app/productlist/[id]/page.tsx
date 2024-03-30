@@ -9,16 +9,25 @@ import SimiliarProductRow from "./_component/SimiliarProductRow";
 const page = () => {
   return (
     <div className="w-screen flex flex-col justify-center mb-[40px] items-center">
-      <div className="xl:w-[80%] xl:px-0 px-12 mb-8">
+      <div className="xl:w-[80%] px-4 sm:px-10 md:px-12 mb-8">
         <NavbarSearch type="search" />
-        <div className="grid grid-cols-2 h-[60vh] mt-[60px]">
+        <div className="lg:hidden block mt-[30px]">
+          <BreadcrumbDemo
+            items={[{ href: "/productlist", name: "Product List" }]}
+          />
+        </div>
+        <div className="grid lg:grid-cols-2 grid-cols-1 lg:mt-[60px] mt-0">
           <ProductImages />
-          <div className="">
-            <BreadcrumbDemo
-              items={[{ href: "/productlist", name: "Product List" }]}
-            />
-            <div className="mt-8 space-y-8">
-              <h1 className="text-4xl font-bold">Purple Warm Zip Jacket</h1>
+          <div>
+            <div className="lg:block hidden">
+              <BreadcrumbDemo
+                items={[{ href: "/productlist", name: "Product List" }]}
+              />
+            </div>
+            <div className="lg:mt-8 mt-16 lg:space-y-8 space-y-4">
+              <h1 className="sm:text-4xl text-xl font-bold">
+                Purple Warm Zip Jacket
+              </h1>
               <p className="text-gray-500 text-xl">$555</p>
               <Separator />
               <p className="text-sm text-gray-600">
@@ -27,11 +36,11 @@ const page = () => {
                 sed. Dicta ipsum et natus doloribus, sapiente officia tempora
                 quo facilis voluptatum architecto quod delectus nemo.
               </p>
-              <div className="flex items-center pt-5">
+              <div className="flex items-center pt-5 lg:pb-0 pb-5">
                 <span className="mr-4">Quantity</span>
                 <Button
                   variant="outline"
-                  className="w-8 h-8 rounded-none bg-blue-100"
+                  className="w-8 h-8 rounded-none  bg-blue-100"
                 >
                   <i className="ri-subtract-line"></i>
                 </Button>
@@ -49,7 +58,9 @@ const page = () => {
             </div>
           </div>
         </div>
-        <SimiliarProductRow />
+        <div className="lg:mt-[100px] mt-[70px]">
+          <SimiliarProductRow />
+        </div>
       </div>
     </div>
   );

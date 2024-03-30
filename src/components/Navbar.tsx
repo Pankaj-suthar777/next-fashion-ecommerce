@@ -15,13 +15,16 @@ const NavbarSearch = ({ type }: { type: string }) => {
         </div>
         <div className="items-center md:flex hidden">
           {/* Search bar */}
-          {type === "search" && <InputWithButton />}
+          <div className="xl:block hidden">
+            {type === "search" && <InputWithButton />}
+          </div>
           {type === "home" && <NavTabs />}
         </div>
         <div className="flex items-center gap-x-6">
-          {type !== "search" && (
+          <div className="xl:hidden block">
             <i className="ri-search-line text-xl text-black cursor-pointer"></i>
-          )}
+          </div>
+
           <Link href="/cart">
             <i className="ri-shopping-cart-2-line text-xl text-black cursor-pointer"></i>
           </Link>

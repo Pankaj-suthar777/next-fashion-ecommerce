@@ -22,8 +22,8 @@ const productData = [
 
 const SimiliarProductRow = () => {
   return (
-    <div className="grid grid-cols-4 xl:gap-x-20 lg:gap-x-14 md:gap-x-10 sm:gap-x-4 gap-x-2 mt-[100px]">
-      <div className="flex justify-between col-span-4 mb-10">
+    <div className="grid lg:grid-cols-4 grid-cols-2 xl:gap-x-20 lg:gap-x-14 md:gap-x-10 sm:gap-x-4 gap-x-2 lg:gap-y-0 gap-y-8">
+      <div className="flex justify-between lg:col-span-4 col-span-2 mb-10">
         <h1 className="text-xl font-bold">Similiar Product</h1>
         <h1 className="font-semibold text-sm cursor-pointer">
           <Link href="/productlist">View all</Link>
@@ -32,7 +32,7 @@ const SimiliarProductRow = () => {
       {productData.map((item) => (
         <div
           key={item.id}
-          className={`p-4 cursor-pointer flex flex-col items-center justify-center h-[340px]`}
+          className={`lg:p-4 p-2 cursor-pointer flex flex-col items-center justify-center lg:h-[340px] h-[270px]`}
         >
           <img
             className=" h-[200px] w-[200px] mb-2 object-cover"

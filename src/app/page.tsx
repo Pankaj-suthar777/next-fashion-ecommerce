@@ -11,7 +11,7 @@ export default function Home() {
     <div>
       <NavbarSearch type="home" />
       <div className="flex flex-col items-center  overscroll-x-none h-full">
-        <div className="mb-10">
+        <div className="md:mb-10 mb-4">
           <CarouselHome />
         </div>
 

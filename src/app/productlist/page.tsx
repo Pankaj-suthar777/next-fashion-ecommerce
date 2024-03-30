@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { DropdownMenuDemo } from "@/components/DropDown";
-import Filter from "./_component/Filter";
+
 import {
   Pagination,
   PaginationContent,
@@ -15,6 +15,21 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import FilterSide from "./_component/FilterSide";
+
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
+import PriceFilter from "./_component/PriceFilter";
+import CategoriesFilter from "./_component/CategoriesFilter";
+import RatingFilter from "./_component/RatingFilter";
 
 const productData = [
   {
@@ -46,10 +61,44 @@ const productData = [
   },
 ];
 
+const CategoriesData = [
+  "https://cdn-icons-png.flaticon.com/128/3129/3129449.png",
+  "https://cdn-icons-png.flaticon.com/128/863/863684.png",
+  "https://cdn-icons-png.flaticon.com/128/1785/1785255.png",
+  "https://cdn-icons-png.flaticon.com/128/998/998771.png",
+  "https://cdn-icons-png.freepik.com/512/599/599762.png",
+  "https://cdn-icons-png.flaticon.com/128/1656/1656850.png",
+];
+
+const categoriesWithNames = [
+  { id: 1, name: "T-shirt", image: CategoriesData[0] },
+  { id: 2, name: "Shirt", image: CategoriesData[1] },
+  { id: 3, name: "Dress", image: CategoriesData[2] },
+  { id: 4, name: "Jeans", image: CategoriesData[3] },
+  { id: 5, name: "Shoes", image: CategoriesData[4] },
+  { id: 6, name: "Bags", image: CategoriesData[5] },
+];
+
+const pricesArray = [
+  { id: 11, between: "All Price", onClick: () => {} },
+  { id: 12, between: "$100 - $250", onClick: () => {} },
+  { id: 13, between: "$250 - $500", onClick: () => {} },
+  { id: 14, between: "$750 - $1000", onClick: () => {} },
+  { id: 15, between: "$1000 - $1500", onClick: () => {} },
+];
+
+const ratingArray = [
+  { id: 1, star: 1, onClick: () => {} },
+  { id: 2, star: 2, onClick: () => {} },
+  { id: 3, star: 3, onClick: () => {} },
+  { id: 4, star: 4, onClick: () => {} },
+];
+
 const ProductList = () => {
   const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [selectedFilterTab, setSelectedFilterTab] = useState("price");
 
   const lastPostIndex = currentPage * itemsPerPage;
   const firstPostIndex = lastPostIndex - itemsPerPage;
@@ -57,34 +106,100 @@ const ProductList = () => {
 
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
-      <div className="xl:w-[80%] xl:px-0 px-12 mb-8">
+      <div className="xl:w-[80%] px-4 xl:px-12 mb-8">
         <NavbarSearch type="search" />
         <div className="flex flex-col gap-y-8 mt-10 ">
           <BreadcrumbDemo
             items={[{ href: "/productlist", name: "Product List" }]}
           />
           <h1 className="font-semibold text-xl text-center tracking-wider">
-            Product List
+            Products
           </h1>
         </div>
 
-        <div className="grid grid-cols-6">
-          <div className="row-span-4 col-span-1">
-            <Filter />
+        <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2">
+          <div className="row-span-4 col-span-1 hidden lg:block">
+            <FilterSide />
           </div>
-          <div className="flex items-center col-span-5 ml-[50px] mt-12 justify-between">
-            <p className="font-normal text-gray-500">
+          <div className="flex items-center lg:col-span-5 md:col-span-4 sm:col-span-3 col-span-2 lg:ml-[50px] mt-12 justify-between">
+            <p className="font-normal md:text-lg text-sm  text-gray-500">
               Total Products : {productData.length}
             </p>
-            <div className="mx-8">
-              <span className="text-slate-500">Sort by:</span>{" "}
+            <div className="lg:mx-8 md:text-lg text-sm flex items-center">
               <DropdownMenuDemo
                 items={[
                   { name: "Low To High", onClick: () => {} },
                   { name: "High To Low", onClick: () => {} },
                 ]}
-                title="Newst Items"
+                title="Sort by"
               />
+              <Drawer>
+                <DrawerTrigger>
+                  <div className="h-8 w-8 flex justify-center items-center border border-gray-400 ml-2 rounded-md lg:hidden cursor-pointer">
+                    <i className="ri-equalizer-line text-xl"></i>
+                  </div>
+                </DrawerTrigger>
+                <DrawerContent>
+                  <DrawerHeader>
+                    <DrawerTitle>Filters</DrawerTitle>
+                  </DrawerHeader>
+                  <div className="grid grid-cols-3 p-4">
+                    <div className="flex flex-col gap-y-2">
+                      <div
+                        className={`flex h-10 border border-black items-center px-2 ${
+                          selectedFilterTab === "price" ? "bg-gray-300" : ""
+                        }`}
+                        onClick={() => setSelectedFilterTab("price")}
+                      >
+                        Price
+                      </div>
+                      <div
+                        className={`flex h-10 border border-black items-center px-2 ${
+                          selectedFilterTab === "category" ? "bg-gray-300" : ""
+                        }`}
+                        onClick={() => setSelectedFilterTab("category")}
+                      >
+                        Category
+                      </div>
+                      {/* <div  className={`flex h-10 border border-black items-center px-2 ${
+                          selectedFilterTab === "price" ? "bg-gray-300" : ""
+                        }`}
+                      </div> */}
+                      <div
+                        className={`flex h-10 border border-black items-center px-2 ${
+                          selectedFilterTab === "rating" ? "bg-gray-300" : ""
+                        }`}
+                        onClick={() => setSelectedFilterTab("rating")}
+                      >
+                        Rating
+                      </div>
+                    </div>
+                    <div className="col-span-2 px-4 flex justify-center">
+                      {selectedFilterTab === "price" ? (
+                        <PriceFilter items={pricesArray} />
+                      ) : selectedFilterTab === "category" ? (
+                        <div>
+                          <CategoriesFilter items={categoriesWithNames} />
+                        </div>
+                      ) : (
+                        <RatingFilter items={ratingArray} />
+                      )}
+                    </div>
+                  </div>
+                  <DrawerFooter className="flex justify-center flex-row">
+                    <div className="w-full">
+                      <span className="px-4 py-2 flex items-center border bg-black text-white w-full rounded-md justify-center">
+                        Applay
+                      </span>
+                    </div>
+                    <DrawerClose className="w-full">
+                      <span className="px-4 py-2 flex items-center border border-black text-black w-full rounded-md justify-center">
+                        Cancel
+                      </span>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </DrawerContent>
+              </Drawer>
             </div>
           </div>
           {currentPosts.map((item) => (
