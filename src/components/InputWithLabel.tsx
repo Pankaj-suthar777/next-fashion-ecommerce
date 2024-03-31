@@ -8,7 +8,11 @@ export function InputWithLabel({
   placeholder,
   LabelStyle,
   InputStyle,
+  value,
+  onChange,
 }: {
+  onChange: (e: any) => void;
+  value: string | null;
   label: string;
   type: string;
   id: string;
@@ -22,6 +26,8 @@ export function InputWithLabel({
         {label}
       </Label>
       <Input
+        onChange={onChange}
+        value={value}
         className={`outline-none h-[40px] focus:outline-none ${InputStyle}`}
         type={type}
         id={id}
