@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { InputWithButton } from "./InputWithButton";
 import { Button } from "./ui/button";

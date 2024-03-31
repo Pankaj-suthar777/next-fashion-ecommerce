@@ -11,7 +11,7 @@ const Footer = () => {
               Logo
             </h1>
             <div className="flex flex-col space-y-4 text-white">
-              <p className="font-light text-xs">
+              <p className="font-light text-xs leading-6">
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
               </p>
               <p className="font-normal text-xs">
@@ -42,7 +42,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex flex-col items-center md:mt-0 mt-10 md:col-span-1 col-span-2">
+        <div className="flex flex-col  md:mt-0 mt-10 md:col-span-1 col-span-2 items-start md:items-center">
           <div>
             <h1 className="text-white font-semibold mb-5 ">Support</h1>
             <div className="flex flex-col space-y-4 text-white ">
@@ -59,7 +59,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="flex  flex-col items-center md:mt-0 mt-10 md:col-span-1 col-span-2">
+        <div className="flex flex-col items-center md:mt-0 mt-10 md:col-span-1 col-span-2">
           <div>
             <h1 className="text-white font-semibold mb-4">Get In Touch</h1>
             <div className="flex gap-x-4 text-white">

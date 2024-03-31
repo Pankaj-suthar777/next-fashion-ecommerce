@@ -189,12 +189,12 @@ const ProductList = () => {
                   <DrawerFooter className="flex justify-center flex-row">
                     <div className="w-full">
                       <span className="px-4 py-2 flex items-center border bg-black text-white w-full rounded-md justify-center">
-                        Applay
+                        Apply
                       </span>
                     </div>
                     <DrawerClose className="w-full">
                       <span className="px-4 py-2 flex items-center border border-black text-black w-full rounded-md justify-center">
-                        Cancel
+                        Clear
                       </span>
                     </DrawerClose>
                   </DrawerFooter>

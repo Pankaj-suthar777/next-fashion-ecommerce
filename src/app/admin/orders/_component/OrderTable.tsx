@@ -76,21 +76,27 @@ const OrderTable = () => {
               <TableCell>{item.date}</TableCell>
               <TableCell>{item.total}</TableCell>
               <TableCell>
-                {item.paid ? (
-                  <i className="text-2xl ri-check-double-line"></i>
-                ) : (
-                  <i className="text-2xl ri-close-fill"></i>
-                )}
+                <div className="flex justify-center items-center">
+                  {item.paid ? (
+                    <i className="text-2xl ri-check-double-line"></i>
+                  ) : (
+                    <i className="text-2xl ri-close-fill"></i>
+                  )}
+                </div>
               </TableCell>
               <TableCell>
-                {item.delivered ? (
-                  <i className="text-2xl ri-check-double-line"></i>
-                ) : (
-                  <i className="text-2xl ri-close-fill"></i>
-                )}
+                <div className="flex justify-center items-center">
+                  {item.delivered ? (
+                    <i className="text-2xl ri-check-double-line"></i>
+                  ) : (
+                    <i className="text-2xl ri-close-fill"></i>
+                  )}
+                </div>
               </TableCell>
-              <TableCell className="flex justify-center items-center">
-                <Button variant="ghost">Details</Button>
+              <TableCell>
+                <div className="flex justify-center items-center">
+                  <Button variant="ghost">Details</Button>
+                </div>
               </TableCell>
             </TableRow>
           ))}

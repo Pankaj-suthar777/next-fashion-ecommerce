@@ -1,14 +1,5 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import React from "react";
 import ProductTable from "./_component/ProductTable";
@@ -16,7 +7,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -30,7 +20,7 @@ import FileInput from "./_component/FileInput";
 const page = () => {
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
-      <div className="xl:w-[80%] xl:px-0 px-12 mb-8">
+      <div className="xl:w-[80%] px-2 xl:px-12 mb-8">
         <NavbarSearch type="home" />
         <Drawer dismissible={false}>
           <div className="flex flex-col gap-y-8 mt-10 ">
@@ -38,14 +28,17 @@ const page = () => {
               items={[{ href: "/admin/products", name: "Products" }]}
             />
           </div>
-          <div className="mt-[50px]">
+          <div className="mt-[50px] w-full">
             <div className="flex justify-between mb-[50px] items-center">
-              <h1 className="text-3xl font-normal">Products</h1>
-              <DrawerTrigger className="px-4 py-2 flex gap-2 items-center bg-black text-white rounded-md">
-                <i className="ri-add-line text-lg"></i>Add Product
+              <h1 className="lg:text-3xl text-xl font-normal">Products</h1>
+              <DrawerTrigger className="sm:px-4 px-3 py-2 flex gap-2 items-center bg-black text-white rounded-md">
+                <i className="ri-add-line lg:text-lg text-sm"></i>
+                <span className="sm:text-md text-xs">Add Product</span>
               </DrawerTrigger>
             </div>
-            <ProductTable />
+            <div className="overflow-y-auto sm:w-full w-[85vw]">
+              <ProductTable />
+            </div>
           </div>
 
           <DrawerContent>
@@ -115,7 +108,7 @@ const page = () => {
                   </TabsContent>
                   <TabsContent value="Gallary">
                     <FileInput />
-                    <div className="mt-5 flex items-center gap-5">
+                    <div className="mt-5 flex items-center gap-5 w-full overflow-auto">
                       <img
                         src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaotkjBRAH59vIByI_-EZLKrQOdWN_cVKZdYJgFTVN1PuyjPKorv904sNSb6rkTFqOe8&usqp=CAU"
                         className="h-32 w-40"
@@ -132,16 +125,13 @@ const page = () => {
                   </TabsContent>
                 </Tabs>
               </div>
-              {/* <DrawerDescription>
-                This action cannot be undone.
-              </DrawerDescription> */}
             </DrawerHeader>
             <DrawerFooter className="flex justify-center flex-row">
-              <span className="px-4 py-2 flex gap-2 items-center border bg-black text-white w-[200px] rounded-md justify-center">
+              <span className="px-4 py-2 flex gap-2 items-center border bg-black text-white sm:w-[200px] w-[150px] rounded-md justify-center">
                 Submit
               </span>
               <DrawerClose>
-                <span className="px-4 py-2 flex gap-2 items-center border border-black text-black w-[200px] rounded-md justify-center">
+                <span className="px-4 py-2 flex gap-2 items-center border border-black text-black sm:w-[200px] w-[150px] rounded-md justify-center">
                   Cancel
                 </span>
               </DrawerClose>

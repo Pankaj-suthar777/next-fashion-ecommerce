@@ -1,12 +1,14 @@
+"use client";
 import { InputWithLabel } from "@/components/InputWithLabel";
 import { Separator } from "@/components/ui/separator";
-import React from "react";
+import React, { useState } from "react";
 import PaymentMethod from "./PaymentMethod";
 import { Button } from "@/components/ui/button";
 
 const Form = () => {
+  const [selectedMethod, setSelectedMehod] = useState("credit");
   return (
-    <div className="grid grid-cols-2 gap-x-24 mt-[70px]">
+    <div className="lg:grid grid-cols-2 lg:gap-y-0 gap-y-8 flex flex-col gap-x-24 sm:mt-[70px] mt-[40px]">
       <div>
         <h2>Buyer Info</h2>
         <Separator className="my-8" />
@@ -51,51 +53,56 @@ const Form = () => {
       <div>
         <h2>Payment Method</h2>
         <Separator className="my-8" />
-        <PaymentMethod />
-        <div className="space-y-6 mt-[30px]">
-          <InputWithLabel
-            label="Name on Card"
-            id="nameoncard"
-            placeholder=""
-            type="text"
-          />
-          <div className="grid grid-cols-4 gap-x-6 gap-y-8">
-            <div className="col-span-3">
-              <InputWithLabel
-                label="Card Number"
-                id="cardnumber"
-                placeholder=""
-                type="number"
-              />
-            </div>
-            <div className="col-span-1">
-              <InputWithLabel
-                label="CVV"
-                id="cvv"
-                placeholder=""
-                type="number"
-              />
-            </div>
-            <div className="col-span-2">
-              <InputWithLabel
-                label="Month"
-                id="month"
-                placeholder="Select Month"
-                type="month"
-              />
-            </div>
-            <div className="col-span-2">
-              <InputWithLabel
-                label="Year"
-                id="year"
-                placeholder="Enter Year"
-                type="year"
-              />
+        <PaymentMethod
+          selectedMethod={selectedMethod}
+          setSelectedMehod={setSelectedMehod}
+        />
+        {selectedMethod === "credit" ? (
+          <div className="space-y-6 mt-[30px]">
+            <InputWithLabel
+              label="Name on Card"
+              id="nameoncard"
+              placeholder=""
+              type="text"
+            />
+            <div className="grid grid-cols-4 gap-x-6 gap-y-8">
+              <div className="col-span-3">
+                <InputWithLabel
+                  label="Card Number"
+                  id="cardnumber"
+                  placeholder=""
+                  type="number"
+                />
+              </div>
+              <div className="col-span-1">
+                <InputWithLabel
+                  label="CVV"
+                  id="cvv"
+                  placeholder=""
+                  type="number"
+                />
+              </div>
+              <div className="col-span-2">
+                <InputWithLabel
+                  label="Month"
+                  id="month"
+                  placeholder="Select Month"
+                  type="month"
+                />
+              </div>
+              <div className="col-span-2">
+                <InputWithLabel
+                  label="Year"
+                  id="year"
+                  placeholder="Enter Year"
+                  type="year"
+                />
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
       </div>
-      <div className="col-span-2 flex justify-end mt-[40px]">
+      <div className="col-span-2 flex justify-end sm:mt-[40px] mt-[5px]">
         <Button className="rounded-none px-11 py-4 text-sm">Checkout</Button>
       </div>
     </div>

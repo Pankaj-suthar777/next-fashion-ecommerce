@@ -43,40 +43,38 @@ const products = [
 
 const ProductTable = () => {
   return (
-    <div>
-      <Table>
-        {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
-        <TableHeader>
+    <Table>
+      {/* <TableCaption>A list of your recent invoices.</TableCaption> */}
+      <TableHeader>
+        <TableRow>
+          <TableHead>ID</TableHead>
+          <TableHead className="text-center">NAME</TableHead>
+          <TableHead>PRICE</TableHead>
+          <TableHead className="">CATEGORY</TableHead>
+          <TableHead className="">BRAND</TableHead>
+          <TableHead className="">ACTIONS</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {products.map((item) => (
           <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead className="text-center">NAME</TableHead>
-            <TableHead>PRICE</TableHead>
-            <TableHead className="">CATEGORY</TableHead>
-            <TableHead className="">BRAND</TableHead>
-            <TableHead className="">ACTIONS</TableHead>
+            <TableCell className="font-medium">{item.id}</TableCell>
+            <TableCell className="text-center">{item.name}</TableCell>
+            <TableCell>${item.price}</TableCell>
+            <TableCell>{item.category}</TableCell>
+            <TableCell>{item.brand}</TableCell>
+            <TableCell className="flex gap-4 items-center justify-center">
+              <Button variant="outline" size="icon">
+                <i className="ri-edit-line"></i>
+              </Button>
+              <Button variant="destructive" size="icon">
+                <i className="ri-delete-bin-line"></i>
+              </Button>
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {products.map((item) => (
-            <TableRow>
-              <TableCell className="font-medium">{item.id}</TableCell>
-              <TableCell className="text-center">{item.name}</TableCell>
-              <TableCell>${item.price}</TableCell>
-              <TableCell>{item.category}</TableCell>
-              <TableCell>{item.brand}</TableCell>
-              <TableCell className="flex gap-4">
-                <Button variant="outline" size="icon">
-                  <i className="ri-edit-line"></i>
-                </Button>
-                <Button variant="destructive" size="icon">
-                  <i className="ri-delete-bin-line"></i>
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 
