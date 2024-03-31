@@ -112,7 +112,7 @@ const ProductList = () => {
           <BreadcrumbDemo
             items={[{ href: "/productlist", name: "Product List" }]}
           />
-          <h1 className="font-semibold text-xl text-center tracking-wider">
+          <h1 className="font-semibold text-xl text-center tracking-wider sm:block hidden">
             Products
           </h1>
         </div>
