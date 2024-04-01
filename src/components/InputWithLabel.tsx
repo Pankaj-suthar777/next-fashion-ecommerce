@@ -12,7 +12,7 @@ export function InputWithLabel({
   onChange,
 }: {
   onChange?: (e: any) => void;
-  value: string;
+  value: string | number;
   label: string;
   type: string;
   id: string;

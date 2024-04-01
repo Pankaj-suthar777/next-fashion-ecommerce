@@ -2,7 +2,7 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/Navbar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { ChangeEvent, useRef, useState } from "react";
 import ProductTable from "./_component/ProductTable";
 import {
   Drawer,
@@ -17,23 +17,39 @@ import { InputWithLabel } from "@/components/InputWithLabel";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import FileInput from "./_component/FileInput";
+import axios from "axios";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import Loader from "@/components/Loader";
 
 export interface ProductDetails {
   name: string;
   description: string;
   brand: string;
-  price: string;
-  countInStock: string;
+  price: number;
+  countInStock: number;
+  image?: File;
+  category?: string;
 }
 
 const page = () => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
   const [productDetails, setProductDetails] = useState<ProductDetails>({
     name: "",
     description: "",
     brand: "",
-    price: "",
-    countInStock: "",
+    price: 0,
+    category: "",
+    countInStock: 0,
   });
+  const [image, setImage] = useState<File | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -43,10 +59,59 @@ const page = () => {
       submitHandler(e);
     }
   };
-  const submitHandler = (e: any) => {
+  const submitHandler = async (e: any) => {
     e.preventDefault();
-    console.log(productDetails);
+    if (isLoading) {
+      return;
+    }
+    try {
+      setIsLoading(true);
+      const formData = new FormData();
+      if (!image) {
+        toast({ variant: "destructive", title: "Please add a image" });
+        return;
+      }
+      if (
+        !productDetails.brand ||
+        !productDetails.category ||
+        !productDetails.countInStock ||
+        !productDetails.description ||
+        !productDetails.name ||
+        !productDetails.price ||
+        !productDetails.category
+      ) {
+        toast({ variant: "destructive", title: "Please fill all the fileds" });
+        return;
+      }
+      console.log(productDetails);
+      formData.append("image", image);
+      const imageUploadRes = await axios.post(
+        "/api/product/upload-image",
+        formData
+      );
+      console.log(imageUploadRes.data.image.secure_url);
+      productDetails.image = imageUploadRes.data.image.secure_url;
+      const res = await axios.post("/api/product/new", productDetails);
+    } catch (error: any) {
+      console.log(error);
+      toast({
+        variant: "destructive",
+        title: "User doesn't exist",
+        description: error.message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
+
+  const onFileSelect = async (e: ChangeEvent<HTMLInputElement>) => {
+    try {
+      if (e.target.files) {
+        setImage(e.target.files[0]);
+      }
+    } catch (error: any) {}
+  };
+
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
       <div className="xl:w-[80%] px-2 xl:px-12 mb-8">
@@ -121,7 +186,7 @@ const page = () => {
                         />
                       </div>
 
-                      <div className="mt-4 w-full">
+                      <div className="mt-4 w-full flex gap-4">
                         <InputWithLabel
                           value={productDetails.brand}
                           onChange={(e) => {
@@ -137,6 +202,31 @@ const page = () => {
                           placeholder="Enter brand name"
                           type="text"
                         />
+                        <div className="grid w-full items-center gap-4">
+                          <Label htmlFor="cate" className={`text-black`}>
+                            Category
+                          </Label>
+                          <Select
+                            onValueChange={(e: any) => {
+                              setProductDetails((prev) => ({
+                                ...prev,
+                                category: e,
+                              }));
+                            }}
+                          >
+                            <SelectTrigger className="w-full">
+                              <SelectValue placeholder="Select Category" />
+                            </SelectTrigger>
+                            <SelectContent className="outline-none focus:outline-none">
+                              <SelectItem value="tshirt">Tshirt</SelectItem>
+                              <SelectItem value="shirt">Shirt</SelectItem>
+                              <SelectItem value="dress">Dress</SelectItem>
+                              <SelectItem value="jeans">Jeans</SelectItem>
+                              <SelectItem value="shoes">Shoes</SelectItem>
+                              <SelectItem value="bag">Bags</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
                       </div>
                       <div className="mt-4 w-full flex gap-4">
                         <InputWithLabel
@@ -172,7 +262,7 @@ const page = () => {
                       </div>
                     </TabsContent>
                     <TabsContent value="Gallary">
-                      <FileInput />
+                      <FileInput onChange={onFileSelect} />
                       <div className="mt-5 flex items-center gap-5 w-full overflow-auto">
                         <img
                           src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaotkjBRAH59vIByI_-EZLKrQOdWN_cVKZdYJgFTVN1PuyjPKorv904sNSb6rkTFqOe8&usqp=CAU"
@@ -194,9 +284,21 @@ const page = () => {
               <DrawerFooter className="flex justify-center flex-row">
                 <span
                   onClick={handleSubmit}
-                  className="px-4 py-2 flex gap-2 items-center border bg-black text-white sm:w-[200px] w-[150px] rounded-md justify-center"
+                  className={`px-4 py-2 flex gap-2 items-center border bg-black text-white sm:w-[200px] w-[150px] rounded-md justify-center cursor-pointer ${
+                    image &&
+                    productDetails.name &&
+                    productDetails.brand &&
+                    productDetails.category &&
+                    productDetails.countInStock &&
+                    productDetails.description &&
+                    productDetails.name &&
+                    productDetails.price &&
+                    productDetails.category
+                      ? ""
+                      : "bg-gray-500"
+                  }`}
                 >
-                  Submit
+                  {isLoading && <Loader />} Submit
                 </span>
                 <DrawerClose>
                   <span className="px-4 py-2 flex gap-2 items-center border border-black text-black sm:w-[200px] w-[150px] rounded-md justify-center">

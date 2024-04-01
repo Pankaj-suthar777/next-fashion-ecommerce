@@ -1,6 +1,10 @@
-import React from "react";
+import React, { ChangeEventHandler } from "react";
 
-const FileInput = () => {
+const FileInput = ({
+  onChange,
+}: {
+  onChange: ChangeEventHandler<HTMLInputElement>;
+}) => {
   return (
     <div className="flex items-center justify-center w-full">
       <label
@@ -31,7 +35,12 @@ const FileInput = () => {
             SVG, PNG, JPG or GIF (MAX. 800x400px)
           </p>
         </div>
-        <input id="dropzone-file" type="file" className="hidden" />
+        <input
+          id="dropzone-file"
+          type="file"
+          className="hidden"
+          onChange={onChange}
+        />
       </label>
     </div>
   );
