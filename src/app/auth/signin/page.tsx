@@ -7,9 +7,14 @@ import React, { useState } from "react";
 import { UserCredentials } from "../signup/page";
 import Loader from "@/components/Loader";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { setCredentialsUser } from "@/app/redux/authSlice";
+import { useDispatch } from "react-redux";
 
 const SignIn = () => {
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const [credentials, setCredentials] = useState<UserCredentials>({
     password: "",
@@ -41,8 +46,16 @@ const SignIn = () => {
           className: "bg-[#32de84] text-black",
           title: "User logged in successfully",
         });
+        dispatch(setCredentialsUser(response.data.user));
+        router.push("/");
       }
-    } catch (error) {}
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "User doesn't exist",
+        description: error.message,
+      });
+    }
   };
   return (
     <div

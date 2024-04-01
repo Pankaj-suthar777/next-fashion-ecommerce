@@ -11,8 +11,8 @@ export function InputWithLabel({
   value,
   onChange,
 }: {
-  onChange: (e: any) => void;
-  value: string | null;
+  onChange?: (e: any) => void;
+  value: string;
   label: string;
   type: string;
   id: string;

@@ -24,12 +24,18 @@ export async function POST(request: NextRequest) {
 
   const user = await UserModel.create(reqBody);
   user.save();
-  // create and assign token
-  const token = jwt.sign({ userId: user._id }, process.env.jwt_secret);
 
   if (user) {
     return NextResponse.json(
-      { message: "User created successfully", token: token },
+      {
+        message: "User created successfully",
+        user: {
+          _id: user._id,
+          username: user.username,
+          email: user.email,
+          isAdmin: user.isAdmin,
+        },
+      },
       { status: 200 }
     );
   } else {

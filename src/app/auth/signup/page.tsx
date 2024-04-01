@@ -55,8 +55,13 @@ const Signup = () => {
           title: "User created successfully",
         });
       }
-      console.log(response.data.token);
-    } catch (error) {}
+    } catch (error: any) {
+      toast({
+        variant: "destructive",
+        title: "User already exist",
+        description: error.message,
+      });
+    }
   };
   return (
     <form onSubmit={onSubmit}>

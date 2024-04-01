@@ -9,9 +9,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
+import { logout } from "@/app/redux/authSlice";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const NavbarDropdown = () => {
-  const route = useRouter();
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  async function logoutHandler() {
+    dispatch(logout());
+    router.push("/auth/signin");
+    await axios.post("/api/auth/logout");
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="border-none outline-none">
@@ -22,37 +32,42 @@ const NavbarDropdown = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
-          onClick={() => route.push("/admin/profile")}
+          onClick={() => router.push("/admin/profile")}
           className="cursor-pointer"
         >
           Profile
         </DropdownMenuItem>
         <DropdownMenuItem
-          onClick={() => route.push("/admin/products")}
+          onClick={() => router.push("/admin/products")}
           className="cursor-pointer"
         >
           Products
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => route.push("/admin/orders")}
+          onClick={() => router.push("/admin/orders")}
         >
           Orders
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => route.push("/admin/report")}
+          onClick={() => router.push("/admin/report")}
         >
           Report
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => route.push("/admin/users")}
+          onClick={() => router.push("/admin/users")}
         >
           Users
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="cursor-pointer">Logout</DropdownMenuItem>
+        <DropdownMenuItem
+          className="cursor-pointer"
+          onClick={() => logoutHandler()}
+        >
+          Logout
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
