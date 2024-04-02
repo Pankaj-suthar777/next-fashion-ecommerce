@@ -34,69 +34,6 @@ import axios from "axios";
 import { ProductDetails } from "@/interfaces/Product";
 import { useRouter } from "next/navigation";
 
-// const productData = [
-//   {
-//     img: "https://image.dhgate.com/0x0/f2/albu/g17/M01/09/E1/rBVa4mHx5IiAQrUTAAo-m2KQPew218.jpg",
-//     id: 1,
-//   },
-//   {
-//     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbTDgAmu5J8jSZKdAVyjsWACOeAHn5R6XmdFGLnNYBsgphaM5S4NUwPqJKAtqs4LJaW7o&usqp=CAU",
-//     id: 2,
-//   },
-//   {
-//     img: "https://img.ltwebstatic.com/images3_pi/2023/05/26/1685065381ad21a5fc681e35445c1c86fb6114de36_thumbnail_405x552.jpg",
-//     id: 3,
-//   },
-//   {
-//     img: "https://rukminim1.flixcart.com/image/300/300/xif0q/sweatshirt/h/9/5/s-women-s-hoodie-full-sleeve-solid-sweatshirt-hoodies-veolic-original-imagbf999bufug7z.jpeg",
-//     id: 4,
-//   },
-//   { img: "https://i.ibb.co/PcXVJ8m/studiobag.jpg", id: 5 },
-//   { img: "https://i.ibb.co/NtpJ0XQ/cumulus-olive.png", id: 6 },
-//   { img: "https://i.ibb.co/yRKyXPJ/dance-nylon.png", id: 7 },
-//   { img: "https://i.ibb.co/Br2W7F0/stratus-backpack.png", id: 8 },
-//   { img: "https://i.ibb.co/CPv6xTF/cirrus1.jpg", id: 9 },
-//   { img: "https://i.ibb.co/LNNw217/mini-circle.png", id: 10 },
-//   { img: "https://i.ibb.co/QmGdpLf/studio-bag-vaqueta.jpg", id: 11 },
-//   {
-//     img: "https://i.ibb.co/LzyPnF3/sling.png",
-//     id: 12,
-//   },
-// ];
-
-const CategoriesData = [
-  "https://cdn-icons-png.flaticon.com/128/3129/3129449.png",
-  "https://cdn-icons-png.flaticon.com/128/863/863684.png",
-  "https://cdn-icons-png.flaticon.com/128/1785/1785255.png",
-  "https://cdn-icons-png.flaticon.com/128/998/998771.png",
-  "https://cdn-icons-png.freepik.com/512/599/599762.png",
-  "https://cdn-icons-png.flaticon.com/128/1656/1656850.png",
-];
-
-const categoriesWithNames = [
-  { id: 1, name: "T-shirt", image: CategoriesData[0] },
-  { id: 2, name: "Shirt", image: CategoriesData[1] },
-  { id: 3, name: "Dress", image: CategoriesData[2] },
-  { id: 4, name: "Jeans", image: CategoriesData[3] },
-  { id: 5, name: "Shoes", image: CategoriesData[4] },
-  { id: 6, name: "Bags", image: CategoriesData[5] },
-];
-
-const pricesArray = [
-  { id: 11, between: "All Price", onClick: () => {} },
-  { id: 12, between: "$100 - $250", onClick: () => {} },
-  { id: 13, between: "$250 - $500", onClick: () => {} },
-  { id: 14, between: "$750 - $1000", onClick: () => {} },
-  { id: 15, between: "$1000 - $1500", onClick: () => {} },
-];
-
-const ratingArray = [
-  { id: 1, star: 1, onClick: () => {} },
-  { id: 2, star: 2, onClick: () => {} },
-  { id: 3, star: 3, onClick: () => {} },
-  { id: 4, star: 4, onClick: () => {} },
-];
-
 const ProductList = () => {
   const [productData, setProductData] = useState<ProductDetails[]>();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
@@ -108,6 +45,19 @@ const ProductList = () => {
     price: [],
     rating: [],
   });
+  const queryParams = new URLSearchParams(window.location.search);
+  const categoryParam = queryParams.get("category");
+  console.log(categoryParam);
+
+  useEffect(() => {
+    if (categoryParam) {
+      setFilters((prevFilters: any) => ({
+        ...prevFilters,
+        category: [categoryParam],
+      }));
+    }
+  }, [categoryParam]);
+
   console.log(filters);
 
   const lastPostIndex = currentPage * itemsPerPage;
@@ -200,25 +150,45 @@ const ProductList = () => {
                     </div>
                     <div className="col-span-2 px-4 flex justify-center">
                       {selectedFilterTab === "price" ? (
-                        <PriceFilter items={pricesArray} />
+                        <PriceFilter
+                          filters={filters}
+                          setFilters={setFilters}
+                        />
                       ) : selectedFilterTab === "category" ? (
                         <div>
-                          <CategoriesFilter items={categoriesWithNames} />
+                          <CategoriesFilter
+                            filters={filters}
+                            setFilters={setFilters}
+                          />
                         </div>
                       ) : (
-                        <RatingFilter items={ratingArray} />
+                        <RatingFilter
+                          filters={filters}
+                          setFilters={setFilters}
+                        />
                       )}
                     </div>
                   </div>
                   <DrawerFooter className="flex justify-center flex-row">
-                    <div className="w-full">
-                      <span className="px-4 py-2 flex items-center border bg-black text-white w-full rounded-md justify-center">
-                        Apply
-                      </span>
-                    </div>
+                    <DrawerClose className="w-full">
+                      <div
+                        className="w-full"
+                        onClick={() =>
+                          setFilters({
+                            category: [],
+                            price: [],
+                            rating: [],
+                          })
+                        }
+                      >
+                        <span className="px-4 py-2 flex items-center border bg-black text-white w-full rounded-md justify-center">
+                          Clear Filters
+                        </span>
+                      </div>
+                    </DrawerClose>
                     <DrawerClose className="w-full">
                       <span className="px-4 py-2 flex items-center border border-black text-black w-full rounded-md justify-center">
-                        Clear
+                        Close
                       </span>
                     </DrawerClose>
                   </DrawerFooter>

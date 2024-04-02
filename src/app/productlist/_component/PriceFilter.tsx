@@ -9,7 +9,6 @@ const pricesArray = [
   { id: 14, between: "$750 - $1000", value: "750-1000", onClick: () => {} },
   { id: 15, between: "$1000 - $1500", value: "1000-1500", onClick: () => {} },
 ];
-
 const PriceFilter = ({
   filters,
   setFilters,
@@ -17,7 +16,17 @@ const PriceFilter = ({
   filters: any;
   setFilters: Function;
 }) => {
-  const [selected, setSelected] = useState<string[]>(["any"]);
+  const [selected, setSelected] = useState<string[]>([...filters.price]);
+  console.log(filters);
+
+  // useEffect(() => {
+  //   if (filters.price.length > 1) {
+  //     setFilters((prevFilters: any) => ({
+  //       ...prevFilters,
+  //       price: filters.price,
+  //     }));
+  //   }
+  // }, []);
 
   useEffect(() => {
     setFilters((prevFilters: any) => ({
@@ -52,7 +61,7 @@ const PriceFilter = ({
             <Checkbox
               id={item.id.toString()}
               onClick={() => handlePriceClick(item.value)}
-              checked={isInclude}
+              checked={isInclude || filters.price.includes(item.value)}
             />
             <label
               htmlFor={item.id.toString()}

@@ -17,7 +17,7 @@ const CategoriesData = [
 ];
 
 const categoriesWithNames = [
-  { id: 1, name: "T-shirt", image: CategoriesData[0], value: "Sweatshirt" },
+  { id: 1, name: "Sweatshirt", image: CategoriesData[0], value: "Sweatshirt" },
   { id: 2, name: "Shirt", image: CategoriesData[1], value: "shirt" },
   { id: 3, name: "Dress", image: CategoriesData[2], value: "dress" },
   { id: 4, name: "Jeans", image: CategoriesData[3], value: "jeans" },

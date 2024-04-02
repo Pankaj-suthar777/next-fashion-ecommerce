@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const CategoriesData = [
   "https://cdn-icons-png.flaticon.com/128/3129/3129449.png",
@@ -33,7 +33,19 @@ const CategoriesFilter = ({
   setFilters: Function;
 }) => {
   const [viewMore, setViewMore] = useState(false);
-  const [selectedCate, setSelectedCate] = useState(88);
+  const [selectedCate, setSelectedCate] = useState(8); // default to "All"
+
+  useEffect(() => {
+    // Update selected category based on initial filter value
+    if (filters.category && filters.category.length > 0) {
+      const selectedCategory = categoriesWithNames.find(
+        (category) => category.value === filters.category[0]
+      );
+      if (selectedCategory) {
+        setSelectedCate(selectedCategory.id);
+      }
+    }
+  }, [filters]);
 
   const toggleView = () => {
     setViewMore(!viewMore);
@@ -60,7 +72,7 @@ const CategoriesFilter = ({
           handleCategoryClick(item.id);
         }}
       >
-        <img src={item.image} className={`h-6 w-6`} />
+        <img src={item.image} className={`h-6 w-6`} alt={item.name} />
         <p
           className={`${
             selectedCate === item.id ? "text-black" : "text-gray-400"
