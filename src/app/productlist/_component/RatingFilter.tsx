@@ -1,19 +1,38 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const ratingArray = [
+  { id: 1, star: 1, onClick: () => {} },
+  { id: 2, star: 2, onClick: () => {} },
+  { id: 3, star: 3, onClick: () => {} },
+  { id: 4, star: 4, onClick: () => {} },
+];
 
 const RatingFilter = ({
-  items,
+  filters,
+  setFilters,
 }: {
-  items: {
-    star: number;
-    id: number;
-  }[];
+  filters: any;
+  setFilters: Function;
 }) => {
-  const [selected, setSelected] = useState<number[]>([1]);
+  const [selected, setSelected] = useState<number[]>([]);
+
+  useEffect(() => {
+    // Include selected ratings in filters when component mounts
+    setFilters((prevFilters: any) => ({
+      ...prevFilters,
+      rating: selected,
+    }));
+  }, [selected]); // Update when selected ratings change
+
+  useEffect(() => {
+    // Ensure "All Ratings" is checked when component mounts
+  }, []); // Run only once when component mounts
+
   return (
     <div className="flex flex-col gap-y-3">
-      {items.map((item, index) => {
+      {ratingArray.map((item, index) => {
         const isInclude = selected.includes(item.id);
         return (
           <div key={index} className="flex gap-4 items-center">
@@ -23,9 +42,10 @@ const RatingFilter = ({
                 if (isInclude) {
                   setSelected((prev) => prev.filter((id) => id !== item.id));
                 } else {
-                  setSelected((pre) => [...pre, item.id]);
+                  setSelected((prev) => [...prev, item.id]);
                 }
               }}
+              checked={isInclude} // Ensure selected rating options are checked
             />
             <label
               htmlFor={item.id.toString()}

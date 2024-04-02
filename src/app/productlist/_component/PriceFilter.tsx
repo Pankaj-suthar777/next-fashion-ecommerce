@@ -1,33 +1,58 @@
 "use client";
 import { Checkbox } from "@/components/ui/checkbox";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+const pricesArray = [
+  { id: 11, between: "All Price", value: "any", onClick: () => {} },
+  { id: 12, between: "$100 - $250", value: "100-250", onClick: () => {} },
+  { id: 13, between: "$250 - $500", value: "250-500", onClick: () => {} },
+  { id: 14, between: "$750 - $1000", value: "750-1000", onClick: () => {} },
+  { id: 15, between: "$1000 - $1500", value: "1000-1500", onClick: () => {} },
+];
 
 const PriceFilter = ({
-  items,
+  filters,
+  setFilters,
 }: {
-  items: {
-    between: string;
-    onClick: Function;
-    id: number;
-  }[];
+  filters: any;
+  setFilters: Function;
 }) => {
-  const [selected, setSelected] = useState<number[]>([1]);
+  const [selected, setSelected] = useState<string[]>(["any"]);
+
+  useEffect(() => {
+    setFilters((prevFilters: any) => ({
+      ...prevFilters,
+      price: selected,
+    }));
+  }, []);
+
+  const handlePriceClick = (priceValue: string) => {
+    if (selected.includes(priceValue)) {
+      setSelected((prevSelected) =>
+        prevSelected.filter((value) => value !== priceValue)
+      );
+    } else {
+      setSelected((prevSelected) => [...prevSelected, priceValue]);
+    }
+  };
+
+  useEffect(() => {
+    setFilters((prevFilters: any) => ({
+      ...prevFilters,
+      price: selected,
+    }));
+  }, [selected, setFilters]);
 
   return (
     <div className="flex flex-col gap-y-5">
-      {items.map((item, index) => {
-        const isInclude = selected.includes(item.id);
+      {pricesArray.map((item) => {
+        const isInclude = selected.includes(item.value);
         return (
-          <div key={index} className="flex gap-4 items-center">
+          <div key={item.id} className="flex gap-4 items-center">
             <Checkbox
               id={item.id.toString()}
-              onClick={() => {
-                if (isInclude) {
-                  setSelected((prev) => prev.filter((id) => id !== item.id));
-                } else {
-                  setSelected((pre) => [...pre, item.id]);
-                }
-              }}
+              onClick={() => handlePriceClick(item.value)}
+              checked={isInclude}
             />
             <label
               htmlFor={item.id.toString()}

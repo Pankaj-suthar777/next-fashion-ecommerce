@@ -22,18 +22,14 @@ const productData: Product[] = [
   },
 ];
 
-const ProductImages = () => {
+const ProductImages = ({ images }: { images: string }) => {
   const [selectedImage, setSelectedImage] = useState<Product | undefined>(
     productData.find((item) => item.id === 1)
   );
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-12">
-      <img
-        src={selectedImage?.img}
-        alt=""
-        className="h-[280px] w-[280px] object-cover"
-      />
+      <img src={images} alt="" className="h-[280px] w-[280px] object-cover" />
       <div className="flex gap-6">
         {productData.map((item) => (
           <div

@@ -1,26 +1,15 @@
+import { connectDB } from "@/config/dbConfig";
+import { ProductDetails } from "@/interfaces/Product";
+import Product from "@/models/productModal";
 import Link from "next/link";
 import React from "react";
+connectDB();
 
-const productData = [
-  {
-    img: "https://image.dhgate.com/0x0/f2/albu/g17/M01/09/E1/rBVa4mHx5IiAQrUTAAo-m2KQPew218.jpg",
-    id: 1,
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbTDgAmu5J8jSZKdAVyjsWACOeAHn5R6XmdFGLnNYBsgphaM5S4NUwPqJKAtqs4LJaW7o&usqp=CAU",
-    id: 2,
-  },
-  {
-    img: "https://img.ltwebstatic.com/images3_pi/2023/05/26/1685065381ad21a5fc681e35445c1c86fb6114de36_thumbnail_405x552.jpg",
-    id: 3,
-  },
-  {
-    img: "https://rukminim1.flixcart.com/image/300/300/xif0q/sweatshirt/h/9/5/s-women-s-hoodie-full-sleeve-solid-sweatshirt-hoodies-veolic-original-imagbf999bufug7z.jpeg",
-    id: 4,
-  },
-];
+const SimiliarProductRow = async ({ product }: { product: ProductDetails }) => {
+  const similarProduct = await Product.find({
+    category: product.category,
+  }).limit(4);
 
-const SimiliarProductRow = () => {
   return (
     <div className="grid lg:grid-cols-4 grid-cols-2 xl:gap-x-20 lg:gap-x-14 md:gap-x-10 sm:gap-x-4 gap-x-2 lg:gap-y-0 gap-y-8">
       <div className="flex justify-between lg:col-span-4 col-span-2 mb-10">
@@ -29,18 +18,21 @@ const SimiliarProductRow = () => {
           <Link href="/productlist">View all</Link>
         </h1>
       </div>
-      {productData.map((item) => (
+      {similarProduct?.map((item) => (
         <div
           key={item.id}
           className={`lg:p-4 p-2 cursor-pointer flex flex-col items-center justify-center lg:h-[340px] h-[270px]`}
         >
           <img
             className=" h-[200px] w-[200px] mb-2 object-cover"
-            src={item.img}
+            src={item.image}
           />
           <div className="flex flex-col justify-center items-center mx-auto">
-            <span className="font-semibold mt-2">Purple Sweatshirt</span>
-            <span className="text-md mt-3">$400</span>
+            <span className="font-semibold mt-2">
+              {item.name.slice(0, 10)}
+              {item.name.length > 15 ? "..." : ""}
+            </span>
+            <span className="text-md mt-3">${item.price}</span>
           </div>
         </div>
       ))}

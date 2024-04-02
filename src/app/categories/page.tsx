@@ -16,6 +16,15 @@ const CategoriesData = [
   "https://cdn-icons-png.flaticon.com/128/1656/1656850.png",
 ];
 
+const categoriesWithNames = [
+  { id: 1, name: "T-shirt", image: CategoriesData[0], value: "Sweatshirt" },
+  { id: 2, name: "Shirt", image: CategoriesData[1], value: "shirt" },
+  { id: 3, name: "Dress", image: CategoriesData[2], value: "dress" },
+  { id: 4, name: "Jeans", image: CategoriesData[3], value: "jeans" },
+  { id: 5, name: "Shoes", image: CategoriesData[4], value: "shoe" },
+  { id: 6, name: "Bags", image: CategoriesData[5], value: "bag" },
+];
+
 const page = () => {
   return (
     <div>
@@ -33,7 +42,7 @@ const page = () => {
           </h1>
 
           <div className="grid sm:grid-cols-2 grid-cols-1 gap-8 mt-[40px] w-full">
-            {CategoriesData.map((item, index) => (
+            {categoriesWithNames.map((item, index) => (
               <CategoriePageComponent key={index} item={item} />
             ))}
           </div>

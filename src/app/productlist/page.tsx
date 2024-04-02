@@ -2,7 +2,7 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { DropdownMenuDemo } from "@/components/DropDown";
 
@@ -30,36 +30,39 @@ import {
 import PriceFilter from "./_component/PriceFilter";
 import CategoriesFilter from "./_component/CategoriesFilter";
 import RatingFilter from "./_component/RatingFilter";
+import axios from "axios";
+import { ProductDetails } from "@/interfaces/Product";
+import { useRouter } from "next/navigation";
 
-const productData = [
-  {
-    img: "https://image.dhgate.com/0x0/f2/albu/g17/M01/09/E1/rBVa4mHx5IiAQrUTAAo-m2KQPew218.jpg",
-    id: 1,
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbTDgAmu5J8jSZKdAVyjsWACOeAHn5R6XmdFGLnNYBsgphaM5S4NUwPqJKAtqs4LJaW7o&usqp=CAU",
-    id: 2,
-  },
-  {
-    img: "https://img.ltwebstatic.com/images3_pi/2023/05/26/1685065381ad21a5fc681e35445c1c86fb6114de36_thumbnail_405x552.jpg",
-    id: 3,
-  },
-  {
-    img: "https://rukminim1.flixcart.com/image/300/300/xif0q/sweatshirt/h/9/5/s-women-s-hoodie-full-sleeve-solid-sweatshirt-hoodies-veolic-original-imagbf999bufug7z.jpeg",
-    id: 4,
-  },
-  { img: "https://i.ibb.co/PcXVJ8m/studiobag.jpg", id: 5 },
-  { img: "https://i.ibb.co/NtpJ0XQ/cumulus-olive.png", id: 6 },
-  { img: "https://i.ibb.co/yRKyXPJ/dance-nylon.png", id: 7 },
-  { img: "https://i.ibb.co/Br2W7F0/stratus-backpack.png", id: 8 },
-  { img: "https://i.ibb.co/CPv6xTF/cirrus1.jpg", id: 9 },
-  { img: "https://i.ibb.co/LNNw217/mini-circle.png", id: 10 },
-  { img: "https://i.ibb.co/QmGdpLf/studio-bag-vaqueta.jpg", id: 11 },
-  {
-    img: "https://i.ibb.co/LzyPnF3/sling.png",
-    id: 12,
-  },
-];
+// const productData = [
+//   {
+//     img: "https://image.dhgate.com/0x0/f2/albu/g17/M01/09/E1/rBVa4mHx5IiAQrUTAAo-m2KQPew218.jpg",
+//     id: 1,
+//   },
+//   {
+//     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbTDgAmu5J8jSZKdAVyjsWACOeAHn5R6XmdFGLnNYBsgphaM5S4NUwPqJKAtqs4LJaW7o&usqp=CAU",
+//     id: 2,
+//   },
+//   {
+//     img: "https://img.ltwebstatic.com/images3_pi/2023/05/26/1685065381ad21a5fc681e35445c1c86fb6114de36_thumbnail_405x552.jpg",
+//     id: 3,
+//   },
+//   {
+//     img: "https://rukminim1.flixcart.com/image/300/300/xif0q/sweatshirt/h/9/5/s-women-s-hoodie-full-sleeve-solid-sweatshirt-hoodies-veolic-original-imagbf999bufug7z.jpeg",
+//     id: 4,
+//   },
+//   { img: "https://i.ibb.co/PcXVJ8m/studiobag.jpg", id: 5 },
+//   { img: "https://i.ibb.co/NtpJ0XQ/cumulus-olive.png", id: 6 },
+//   { img: "https://i.ibb.co/yRKyXPJ/dance-nylon.png", id: 7 },
+//   { img: "https://i.ibb.co/Br2W7F0/stratus-backpack.png", id: 8 },
+//   { img: "https://i.ibb.co/CPv6xTF/cirrus1.jpg", id: 9 },
+//   { img: "https://i.ibb.co/LNNw217/mini-circle.png", id: 10 },
+//   { img: "https://i.ibb.co/QmGdpLf/studio-bag-vaqueta.jpg", id: 11 },
+//   {
+//     img: "https://i.ibb.co/LzyPnF3/sling.png",
+//     id: 12,
+//   },
+// ];
 
 const CategoriesData = [
   "https://cdn-icons-png.flaticon.com/128/3129/3129449.png",
@@ -95,14 +98,35 @@ const ratingArray = [
 ];
 
 const ProductList = () => {
-  const [hoveredProductId, setHoveredProductId] = useState<number | null>(null);
+  const [productData, setProductData] = useState<ProductDetails[]>();
+  const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [selectedFilterTab, setSelectedFilterTab] = useState("price");
+  const [filters, setFilters] = useState({
+    category: [],
+    price: [],
+    rating: [],
+  });
+  console.log(filters);
 
   const lastPostIndex = currentPage * itemsPerPage;
   const firstPostIndex = lastPostIndex - itemsPerPage;
-  const currentPosts = productData.slice(firstPostIndex, lastPostIndex);
+  const currentPosts = productData?.slice(firstPostIndex, lastPostIndex);
+
+  const getData = async () => {
+    try {
+      const response = await axios.post("/api/product", {});
+      setProductData(response.data);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const router = useRouter();
 
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
@@ -119,11 +143,11 @@ const ProductList = () => {
 
         <div className="grid lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 grid-cols-2">
           <div className="row-span-4 col-span-1 hidden lg:block">
-            <FilterSide />
+            <FilterSide filters={filters} setFilters={setFilters} />
           </div>
           <div className="flex items-center lg:col-span-5 md:col-span-4 sm:col-span-3 col-span-2 lg:ml-[50px] mt-12 justify-between">
             <p className="font-normal md:text-lg text-sm  text-gray-500">
-              Total Products : {productData.length}
+              Total Products : {productData?.length}
             </p>
             <div className="lg:mx-8 md:text-lg text-sm flex items-center">
               <DropdownMenuDemo
@@ -202,29 +226,40 @@ const ProductList = () => {
               </Drawer>
             </div>
           </div>
-          {currentPosts.map((item) => (
+          {currentPosts?.map((item) => (
             <motion.div
-              key={item.id}
+              key={item._id}
               className={`p-4 cursor-pointer flex flex-col items-center justify-center h-[280px]`}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }} // Adjust the duration here
-              onMouseEnter={() => setHoveredProductId(item.id)}
+              onMouseEnter={() => setHoveredProductId(item._id)}
               onMouseLeave={() => setHoveredProductId(null)}
             >
-              <img
-                className=" h-[150px] w-[150px] mb-2 object-cover"
-                src={item.img}
-              />
-              <div className="flex flex-col justify-center items-center mx-auto">
-                <span className="font-semibold">Purple Sweatshirt</span>
-                <span className="text-xs mt-1">$400</span>
-
-                {hoveredProductId === item.id && (
-                  <Button className="rounded-none mt-4 text-xs">
-                    Add to Cart
-                  </Button>
-                )}
+              <div
+                onClick={() => {
+                  router.push(`/productlist/${item._id}`);
+                }}
+              >
+                <img
+                  className=" h-[150px] w-[150px] mb-2 object-cover"
+                  src={item.image}
+                />
+                <div className="flex flex-col justify-center items-center mx-auto">
+                  <span className="font-semibold text-center">
+                    {item.name.slice(0, 10)}
+                    {item.name.length > 15 ? "..." : ""}
+                  </span>
+                  <span className="text-xs mt-1">${item.price}</span>
+                </div>
               </div>
+              {hoveredProductId === item._id && (
+                <Button
+                  className="rounded-none mt-4 text-xs"
+                  onClick={() => console.log("hi")}
+                >
+                  Add To Cart
+                </Button>
+              )}
             </motion.div>
           ))}
         </div>
@@ -232,7 +267,7 @@ const ProductList = () => {
       <PaginationSection
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        totalItems={productData.length}
+        totalItems={productData?.length}
         setCurrentPage={setCurrentPage}
       />
     </div>

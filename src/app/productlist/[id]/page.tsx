@@ -5,8 +5,18 @@ import { Separator } from "@/components/ui/separator";
 import React from "react";
 import ProductImages from "./_component/ProductImages";
 import SimiliarProductRow from "./_component/SimiliarProductRow";
+import { ProductDetails } from "@/interfaces/Product";
+import Product from "@/models/productModal";
 
-const page = () => {
+interface Props {
+  params: {
+    id: string;
+  };
+}
+
+const page = async ({ params }: Props) => {
+  const product: ProductDetails = (await Product.findById(params.id)) as any;
+
   return (
     <div className="w-screen flex flex-col justify-center mb-[40px] items-center">
       <div className="xl:w-[80%] px-4 sm:px-10 md:px-12 mb-8">
@@ -17,7 +27,7 @@ const page = () => {
           />
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 lg:mt-[60px] mt-0">
-          <ProductImages />
+          <ProductImages images={product.image} />
           <div>
             <div className="lg:block hidden">
               <BreadcrumbDemo
@@ -25,17 +35,10 @@ const page = () => {
               />
             </div>
             <div className="lg:mt-8 mt-16 lg:space-y-8 space-y-4">
-              <h1 className="sm:text-4xl text-xl font-bold">
-                Purple Warm Zip Jacket
-              </h1>
-              <p className="text-gray-500 text-xl">$555</p>
+              <h1 className="sm:text-4xl text-xl font-bold">{product.name}</h1>
+              <p className="text-gray-500 text-xl">${product.price}</p>
               <Separator />
-              <p className="text-sm text-gray-600">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Non
-                quas officiis ducimus error itaque quo eaque, id earum officia
-                sed. Dicta ipsum et natus doloribus, sapiente officia tempora
-                quo facilis voluptatum architecto quod delectus nemo.
-              </p>
+              <p className="text-sm text-gray-600">{product.description}</p>
               <div className="flex items-center pt-5 lg:pb-0 pb-5">
                 <span className="mr-4">Quantity</span>
                 <Button
@@ -59,7 +62,7 @@ const page = () => {
           </div>
         </div>
         <div className="lg:mt-[100px] mt-[70px]">
-          <SimiliarProductRow />
+          <SimiliarProductRow product={product} />
         </div>
       </div>
     </div>

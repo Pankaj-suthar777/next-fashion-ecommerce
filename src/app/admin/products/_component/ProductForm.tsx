@@ -1,5 +1,6 @@
 "use client";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   Drawer,
@@ -29,12 +30,16 @@ const ProductForm = ({
   open,
   setOpen,
   selectedProduct,
+  setSelectedProduct,
 }: {
   open: boolean;
   setOpen: Function;
   selectedProduct: ProductDetails | undefined;
+  setSelectedProduct: Function;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const [uploadedImage, setUploadedImage] = useState("");
+  const router = useRouter();
   const { toast } = useToast();
   const [productDetails, setProductDetails] = useState<ProductDetails>({
     name: selectedProduct?.name || "",
@@ -54,7 +59,9 @@ const ProductForm = ({
       category: selectedProduct?.category || "",
       countInStock: selectedProduct?.countInStock || 0,
     });
+    setUploadedImage(selectedProduct?.image);
   }, [selectedProduct]);
+
   const [image, setImage] = useState<File | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
@@ -98,7 +105,7 @@ const ProductForm = ({
         productDetails.image = imageUploadRes.data.image.secure_url;
       }
       let res;
-      if (selectedProduct === undefined) {
+      if (!selectedProduct) {
         res = await axios.post("/api/product/new", productDetails);
         if (res.status === 201) {
           toast({
@@ -129,6 +136,16 @@ const ProductForm = ({
     } finally {
       setIsLoading(false);
       setOpen(false);
+      router.refresh();
+      setProductDetails({
+        name: "",
+        description: "",
+        brand: "",
+        price: 0,
+        category: "",
+        countInStock: 0,
+      });
+      setImage(null);
     }
   };
 
@@ -225,7 +242,7 @@ const ProductForm = ({
                           <SelectValue placeholder="Select Category" />
                         </SelectTrigger>
                         <SelectContent className="outline-none focus:outline-none">
-                          <SelectItem value="tshirt">Tshirt</SelectItem>
+                          <SelectItem value="Sweatshirt">Sweatshirt</SelectItem>
                           <SelectItem value="shirt">Shirt</SelectItem>
                           <SelectItem value="dress">Dress</SelectItem>
                           <SelectItem value="jeans">Jeans</SelectItem>
@@ -271,7 +288,37 @@ const ProductForm = ({
                 <TabsContent value="Gallary">
                   <FileInput onChange={onFileSelect} />
                   <div className="mt-5 flex items-center gap-5 w-full overflow-auto">
-                    <img
+                    {uploadedImage && (
+                      <div className="relative p-4">
+                        <img
+                          src={uploadedImage}
+                          className="max-h-40"
+                          alt="Uploaded Profile"
+                        />
+                        <i
+                          className="ri-delete-bin-6-line absolute cursor-pointer z-88 bg-black text-white top-4 p-1 right-4 text-md rounded-sm"
+                          onClick={() => {
+                            setImage(null);
+                            setUploadedImage("");
+                          }}
+                        ></i>
+                      </div>
+                    )}
+                    {image && (
+                      <div className="p-4  relative">
+                        <img
+                          src={URL.createObjectURL(image)}
+                          className="max-h-40 object-cover"
+                          alt="Uploaded Profile"
+                        />
+                        <i
+                          className="ri-delete-bin-6-line absolute cursor-pointer z-88 bg-black text-white top-4 p-1 right-4 text-md rounded-sm"
+                          onClick={() => setImage(null)}
+                        ></i>
+                      </div>
+                    )}
+
+                    {/* <img
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMaotkjBRAH59vIByI_-EZLKrQOdWN_cVKZdYJgFTVN1PuyjPKorv904sNSb6rkTFqOe8&usqp=CAU"
                       className="h-32 w-40"
                     />
@@ -282,7 +329,7 @@ const ProductForm = ({
                     <img
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiNqtpAjEli4jPhVf2YT239y2Rhq_-6YLPf-1lwS2JLQ&s"
                       className="h-32 w-40"
-                    />
+                    /> */}
                   </div>
                 </TabsContent>
               </Tabs>
@@ -309,7 +356,12 @@ const ProductForm = ({
             >
               {isLoading && <Loader />} Submit
             </span>
-            <DrawerClose onClick={() => setOpen(false)}>
+            <DrawerClose
+              onClick={() => {
+                setOpen(false);
+                setSelectedProduct(null);
+              }}
+            >
               <span className="px-4 py-2 flex gap-2 items-center border border-black text-black sm:w-[200px] w-[150px] rounded-md justify-center">
                 Cancel
               </span>

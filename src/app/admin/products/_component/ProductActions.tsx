@@ -32,6 +32,7 @@ const ProductActions = ({ products }: { products: ProductDetails[] }) => {
         />
 
         <ProductForm
+          setSelectedProduct={setSelectedProduct}
           open={open}
           setOpen={setOpen}
           selectedProduct={selectedProduct}
