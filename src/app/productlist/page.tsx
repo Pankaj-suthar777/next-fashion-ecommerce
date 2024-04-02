@@ -116,7 +116,7 @@ const ProductList = () => {
 
   const getData = async () => {
     try {
-      const response = await axios.post("/api/product", {});
+      const response = await axios.post("/api/product", { filters });
       setProductData(response.data);
     } catch (error: any) {
       console.log(error.message);
@@ -124,7 +124,7 @@ const ProductList = () => {
   };
   useEffect(() => {
     getData();
-  }, []);
+  }, [filters]);
 
   const router = useRouter();
 
