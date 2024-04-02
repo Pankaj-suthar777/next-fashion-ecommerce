@@ -11,7 +11,7 @@ const Loader = ({
 }) => {
   return (
     <div
-      className={`inline-block animate-spin rounded-full h-4 w-4 border-2 border-t-transparent ${height} ${width} border-white ${color}`}
+      className={`inline-block animate-spin rounded-full h-4 w-4 border-2 border-t-transparent ${height} ${width}  ${color}`}
     ></div>
   );
 };

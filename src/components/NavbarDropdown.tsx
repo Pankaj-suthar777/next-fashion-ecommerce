@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/app/redux/authSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+import { ModeToggle } from "./ModeToogle";
 
 const NavbarDropdown = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,9 @@ const NavbarDropdown = () => {
         >
           Logout
         </DropdownMenuItem>
+        {/* <DropdownMenuItem className="cursor-pointer">
+          <ModeToggle />
+        </DropdownMenuItem> */}
       </DropdownMenuContent>
     </DropdownMenu>
   );

@@ -5,6 +5,7 @@ import "remixicon/fonts/remixicon.css";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import Provider from "./Provider";
+import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const inter = Poppins({
   subsets: ["latin"],
@@ -24,11 +25,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {/* <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        > */}
         <Provider>
           {children}
           <Toaster />
           <Footer />
         </Provider>
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

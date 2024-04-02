@@ -19,7 +19,7 @@ export function CarouselHome() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full"
+      className="w-full z-[-99]"
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >

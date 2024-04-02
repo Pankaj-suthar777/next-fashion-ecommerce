@@ -41,31 +41,36 @@ const SignIn = () => {
       setLoading(true);
       const response = await axios.post("/api/auth/login", credentials);
       setLoading(false);
-      if (response.status === 200) {
+      if (response.data.status === 200) {
         toast({
           className: "bg-[#32de84] text-black",
           title: "User logged in successfully",
         });
         dispatch(setCredentialsUser(response.data.user));
         router.push("/");
+      } else {
+        toast({
+          variant: "destructive",
+          title: "User doesn't exist",
+        });
       }
     } catch (error: any) {
       toast({
         variant: "destructive",
-        title: "User doesn't exist",
+        title: "Somthing went wrong",
         description: error.message,
       });
     }
   };
   return (
-    <div
-      className="h-screen w-screen flex justify-center items-center fixed"
-      style={{
-        backgroundImage:
-          'url("https://cdn.wallpapersafari.com/12/79/iQeBup.jpg")',
-      }}
-    >
-      <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit}>
+      <div
+        className="h-screen w-screen flex justify-center items-center fixed"
+        style={{
+          backgroundImage:
+            'url("https://cdn.wallpapersafari.com/12/79/iQeBup.jpg")',
+        }}
+      >
         <div className="bg-white w-[90%] max-w-[1200px] rounded-lg">
           <div className="grid lg:grid-cols-2 md:gap-16 md:px-16 py-10">
             <div className="px-6 py-8 flex flex-col justify-center items-center">
@@ -112,8 +117,8 @@ const SignIn = () => {
             </div>
           </div>
         </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

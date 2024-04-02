@@ -1,5 +1,8 @@
+import { connectDB } from "@/config/dbConfig";
 import Product from "@/models/productModal";
 import { NextRequest, NextResponse } from "next/server";
+
+connectDB();
 
 export async function POST(request: NextRequest) {
   try {

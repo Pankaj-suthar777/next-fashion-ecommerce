@@ -1,5 +1,108 @@
+// "use client";
+// import React from "react";
+// import { InputWithButton } from "./InputWithButton";
+// import { Button } from "./ui/button";
+// import NavTabs from "./NavTabs";
+// import Link from "next/link";
+// import NavbarDropdown from "./NavbarDropdown";
+// import {
+//   AlertDialog,
+//   AlertDialogAction,
+//   AlertDialogCancel,
+//   AlertDialogContent,
+//   AlertDialogDescription,
+//   AlertDialogFooter,
+//   AlertDialogHeader,
+//   AlertDialogTitle,
+//   AlertDialogTrigger,
+// } from "@/components/ui/alert-dialog";
+// import { Input } from "./ui/input";
+
+// const NavbarSearch = ({ type }: { type: string }) => {
+//   return (
+//     <nav className="text-black py-4 overscroll-x-none">
+//       <div className="max-w-6xl  mx-auto px-4 flex justify-between items-center">
+//         <div className="text-xl font-bold w-[148px] cursor-pointer">
+//           {/* Your logo component */}
+//           <Link href="/">Logo</Link>
+//         </div>
+//         <div className="items-center md:flex hidden">
+//           {/* Search bar */}
+//           <div className="xl:block hidden">
+//             {type === "search" && <InputWithButton />}
+//           </div>
+//           {type === "home" && <NavTabs />}
+//         </div>
+//         <div className="flex items-center gap-x-6">
+//           <AlertDialog>
+//             <AlertDialogTrigger>
+//               <div className="xl:hidden block">
+//                 <i className="ri-search-line text-xl text-black cursor-pointer"></i>
+//               </div>
+//             </AlertDialogTrigger>
+//             <AlertDialogContent className="lg:w-[50vw] w-[90vw] rounded-xl">
+//               <AlertDialogHeader>
+//                 <AlertDialogTitle>Search Product</AlertDialogTitle>
+//                 <AlertDialogDescription>
+//                   {/* This action cannot be undone. This will permanently delete
+//                   your account and remove your data from our servers. */}
+//                   <Input placeholder="search" />
+//                 </AlertDialogDescription>
+//               </AlertDialogHeader>
+//               <AlertDialogFooter>
+//                 <div className="flex justify-end items-center gap-x-4">
+//                   <div>
+//                     <AlertDialogCancel className="mt-0">
+//                       Cancel
+//                     </AlertDialogCancel>
+//                   </div>
+//                   <div>
+//                     <AlertDialogAction>Search</AlertDialogAction>
+//                   </div>
+//                 </div>
+//               </AlertDialogFooter>
+//             </AlertDialogContent>
+//           </AlertDialog>
+
+//           <Link href="/cart">
+//             <i className="ri-shopping-cart-2-line text-xl text-black cursor-pointer"></i>
+//           </Link>
+//           <AlertDialog>
+//             <AlertDialogTrigger>
+//               <i className="ri-notification-2-line text-xl text-black cursor-pointer"></i>
+//             </AlertDialogTrigger>
+//             <AlertDialogContent className="lg:w-[50vw] w-[90vw] rounded-xl">
+//               <AlertDialogHeader>
+//                 <AlertDialogTitle>Notifications</AlertDialogTitle>
+//                 <AlertDialogDescription>
+//                   {/* This action cannot be undone. This will permanently delete
+//                   your account and remove your data from our servers. */}
+//                   {/* <Input placeholder="search" /> */}
+//                 </AlertDialogDescription>
+//               </AlertDialogHeader>
+//               <AlertDialogFooter>
+//                 <div className="flex justify-end items-center gap-x-4">
+//                   <div>
+//                     <AlertDialogCancel className="mt-0">
+//                       Close
+//                     </AlertDialogCancel>
+//                   </div>
+//                 </div>
+//               </AlertDialogFooter>
+//             </AlertDialogContent>
+//           </AlertDialog>
+
+//           {/* <Button className="rounded-none text-xs cursor-pointer">Login</Button> */}
+//           <NavbarDropdown />
+//         </div>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default NavbarSearch;
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { InputWithButton } from "./InputWithButton";
 import { Button } from "./ui/button";
 import NavTabs from "./NavTabs";
@@ -19,9 +122,23 @@ import {
 import { Input } from "./ui/input";
 
 const NavbarSearch = ({ type }: { type: string }) => {
+  const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+
+  const handleAlertDialogClose = () => {
+    setIsAlertDialogOpen(false);
+  };
+
+  const handleAlertDialogOpen = () => {
+    setIsAlertDialogOpen(true);
+  };
+
   return (
-    <nav className="text-black py-4 overscroll-x-none">
-      <div className="max-w-6xl  mx-auto px-4 flex justify-between items-center">
+    <nav
+      className={`text-black py-4 overscroll-x-none ${
+        isAlertDialogOpen ? "blur" : ""
+      }`}
+    >
+      <div className="max-w-6xl mx-auto px-4 flex justify-between items-center">
         <div className="text-xl font-bold w-[148px] cursor-pointer">
           {/* Your logo component */}
           <Link href="/">Logo</Link>
@@ -37,27 +154,33 @@ const NavbarSearch = ({ type }: { type: string }) => {
           <AlertDialog>
             <AlertDialogTrigger>
               <div className="xl:hidden block">
-                <i className="ri-search-line text-xl text-black cursor-pointer"></i>
+                <i
+                  className="ri-search-line text-xl text-black cursor-pointer"
+                  onClick={handleAlertDialogOpen}
+                ></i>
               </div>
             </AlertDialogTrigger>
             <AlertDialogContent className="lg:w-[50vw] w-[90vw] rounded-xl">
               <AlertDialogHeader>
                 <AlertDialogTitle>Search Product</AlertDialogTitle>
                 <AlertDialogDescription>
-                  {/* This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers. */}
                   <Input placeholder="search" />
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <div className="flex justify-end items-center gap-x-4">
                   <div>
-                    <AlertDialogCancel className="mt-0">
+                    <AlertDialogCancel
+                      className="mt-0"
+                      onClick={handleAlertDialogClose}
+                    >
                       Cancel
                     </AlertDialogCancel>
                   </div>
                   <div>
-                    <AlertDialogAction>Search</AlertDialogAction>
+                    <AlertDialogAction onClick={handleAlertDialogClose}>
+                      Search
+                    </AlertDialogAction>
                   </div>
                 </div>
               </AlertDialogFooter>
@@ -68,22 +191,23 @@ const NavbarSearch = ({ type }: { type: string }) => {
             <i className="ri-shopping-cart-2-line text-xl text-black cursor-pointer"></i>
           </Link>
           <AlertDialog>
-            <AlertDialogTrigger>
+            <AlertDialogTrigger onClick={handleAlertDialogOpen}>
               <i className="ri-notification-2-line text-xl text-black cursor-pointer"></i>
             </AlertDialogTrigger>
             <AlertDialogContent className="lg:w-[50vw] w-[90vw] rounded-xl">
               <AlertDialogHeader>
                 <AlertDialogTitle>Notifications</AlertDialogTitle>
                 <AlertDialogDescription>
-                  {/* This action cannot be undone. This will permanently delete
-                  your account and remove your data from our servers. */}
                   {/* <Input placeholder="search" /> */}
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
                 <div className="flex justify-end items-center gap-x-4">
                   <div>
-                    <AlertDialogCancel className="mt-0">
+                    <AlertDialogCancel
+                      className="mt-0"
+                      onClick={handleAlertDialogClose}
+                    >
                       Close
                     </AlertDialogCancel>
                   </div>
