@@ -35,6 +35,17 @@ export async function POST(request: NextRequest) {
 
     let products;
 
+    const sortBy =
+      reqBody?.sortBy === "LTH"
+        ? { price: 1 }
+        : reqBody?.sortBy === "HTL"
+        ? { price: -1 }
+        : reqBody?.sortBy === "NEWLY"
+        ? { createdAt: -1 }
+        : null;
+
+    console.log(sortBy);
+
     if (reqBody.limit) {
       products = await Product.find({}).limit(reqBody.limit).lean();
     } else if (
@@ -42,17 +53,13 @@ export async function POST(request: NextRequest) {
       reqBody?.filters?.price
     ) {
       const { category, ...filtersWithoutCategory } = filtersProduct;
-      products = await Product.find(filtersWithoutCategory)
-        .sort({ createdAt: -1 })
-        .lean();
+      products = await Product.find(filtersWithoutCategory).sort(sortBy).lean();
     } else if (reqBody?.filters?.category?.[0] === "all") {
-      products = await Product.find({}).sort({ createdAt: -1 }).lean();
+      products = await Product.find({}).sort(sortBy).lean();
     } else if (reqBody.filters) {
-      products = await Product.find(filtersProduct)
-        .sort({ createdAt: -1 })
-        .lean();
+      products = await Product.find(filtersProduct).sort(sortBy).lean();
     } else {
-      products = await Product.find({}).sort({ createdAt: -1 }).lean();
+      products = await Product.find({}).sort(sortBy).lean();
     }
 
     return NextResponse.json(products, { status: 201 });

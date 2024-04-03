@@ -1,12 +1,12 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import React from "react";
 import ProductImages from "./_component/ProductImages";
 import SimiliarProductRow from "./_component/SimiliarProductRow";
 import { ProductDetails } from "@/interfaces/Product";
 import Product from "@/models/productModal";
+import ProductAddToCartActions from "./_component/ProductAddToCartActions";
 
 interface Props {
   params: {
@@ -15,8 +15,8 @@ interface Props {
 }
 
 const page = async ({ params }: Props) => {
-  const product: ProductDetails = (await Product.findById(params.id)) as any;
-
+  const productData = await Product.findById(params.id);
+  const product: ProductDetails = JSON.parse(JSON.stringify(productData));
   return (
     <div className="w-screen flex flex-col justify-center mb-[40px] items-center">
       <div className="xl:w-[80%] px-4 sm:px-10 md:px-12 mb-8">
@@ -39,25 +39,7 @@ const page = async ({ params }: Props) => {
               <p className="text-gray-500 text-xl">${product.price}</p>
               <Separator />
               <p className="text-sm text-gray-600">{product.description}</p>
-              <div className="flex items-center pt-5 lg:pb-0 pb-5">
-                <span className="mr-4">Quantity</span>
-                <Button
-                  variant="outline"
-                  className="w-8 h-8 rounded-none  bg-blue-100"
-                >
-                  <i className="ri-subtract-line"></i>
-                </Button>
-                <span className="w-10 h-8 flex justify-center items-center border border-black">
-                  1
-                </span>
-                <Button className="w-8 h-8 rounded-none">
-                  <i className="ri-add-line"></i>
-                </Button>
-              </div>
-              <Button className="flex items-center rounded-none px-[32px] py-[22px]">
-                Add to Cart{" "}
-                <i className="ri-shopping-cart-2-line text-xl ml-4"></i>
-              </Button>
+              <ProductAddToCartActions item={product} />
             </div>
           </div>
         </div>

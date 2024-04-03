@@ -5,6 +5,7 @@ const initialState = {
   cartItems: [],
   shippingAddress: {},
   paymentMethod: "PayPal",
+  totalPrice: 0,
 };
 
 if (typeof localStorage !== "undefined") {
@@ -15,6 +16,7 @@ if (typeof localStorage !== "undefined") {
       initialState.cartItems = parsedCart.cartItems || [];
       initialState.shippingAddress = parsedCart.shippingAddress || {};
       initialState.paymentMethod = parsedCart.paymentMethod || "PayPal";
+      initialState.totalPrice = parsedCart.totalPrice;
     } catch (error) {
       console.error("Error parsing cart from localStorage:", error);
       // Handle the error if needed

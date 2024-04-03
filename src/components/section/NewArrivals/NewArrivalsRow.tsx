@@ -3,12 +3,16 @@ import { connectDB } from "@/config/dbConfig";
 import { ProductDetails } from "@/interfaces/Product";
 import Product from "@/models/productModal";
 import React from "react";
+import AddItemToCartButton from "./AddItemToCartButton";
+import Link from "next/link";
 connectDB();
 
 const NewArrivalsRow = async () => {
-  const products: ProductDetails[] = (await Product.find({})
+  const productsData: ProductDetails[] = (await Product.find({})
     .sort()
     .limit(5)) as any;
+  const products: ProductDetails[] = JSON.parse(JSON.stringify(productsData));
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -26,44 +30,46 @@ const NewArrivalsRow = async () => {
               {products[0].name}
             </span>
             <span className="text-xs mt-1">${products[0].price}</span>
-            <Button className="rounded-none mt-4 sm:text-lg text-xs">
-              Add to Cart
-            </Button>
+            <AddItemToCartButton item={products[0]} />
           </div>
         </div>
 
         {products.slice(1, -1).map((product) => (
-          <div className="h-full w-full">
+          <Link href={`/productlist/${product._id}`}>
+            <div className="h-full w-full">
+              <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
+                <img
+                  className=" h-[90px] w-[90px] mb-2 object-cover"
+                  src={product.image}
+                />
+                <div className="flex flex-col justify-center items-center mx-auto">
+                  <span className="font-semibold sm:text-lg text-xs text-center">
+                    {product.name.slice(0, 10)}
+                    {product.name.length > 10 ? "..." : ""}
+                  </span>
+                  <span className="text-xs mt-1">${product.price}</span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        ))}
+
+        <Link href={`/productlist/${products[4]._id}`}>
+          <div className="sm:block hidden h-full w-full">
             <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
               <img
-                className=" h-[90px] w-[90px] mb-2 object-cover"
-                src={product.image}
+                className="h-[90px] w-[90px] mb-2 object-cover"
+                src={products[4]?.image}
               />
               <div className="flex flex-col justify-center items-center mx-auto">
                 <span className="font-semibold sm:text-lg text-xs text-center">
-                  {product.name.slice(0, 10)}
-                  {product.name.length > 10 ? "..." : ""}
+                  {products[4]?.name}
                 </span>
-                <span className="text-xs mt-1">${product.price}</span>
+                <span className="text-xs mt-1">${products[4]?.price}</span>
               </div>
             </div>
           </div>
-        ))}
-
-        <div className="sm:block hidden h-full w-full">
-          <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
-            <img
-              className="h-[90px] w-[90px] mb-2 object-cover"
-              src={products[4]?.image}
-            />
-            <div className="flex flex-col justify-center items-center mx-auto">
-              <span className="font-semibold sm:text-lg text-xs text-center">
-                {products[4]?.name}
-              </span>
-              <span className="text-xs mt-1">${products[4]?.price}</span>
-            </div>
-          </div>
-        </div>
+        </Link>
       </div>
     </>
   );

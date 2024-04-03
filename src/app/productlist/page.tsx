@@ -51,6 +51,7 @@ const ProductList = () => {
     price: [],
     rating: [],
   });
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
@@ -69,8 +70,13 @@ const ProductList = () => {
 
   const getData = async () => {
     try {
-      const response = await axios.post("/api/product", { filters });
-      setProductData(response.data);
+      if (sortBy === "") {
+        const response = await axios.post("/api/product", { filters });
+        setProductData(response.data);
+      } else {
+        const response = await axios.post("/api/product", { filters, sortBy });
+        setProductData(response.data);
+      }
     } catch (error: any) {
       console.log(error.message);
     }
@@ -78,7 +84,7 @@ const ProductList = () => {
 
   useEffect(() => {
     getData();
-  }, [filters]);
+  }, [filters, sortBy]);
 
   const handleClearFilters = useCallback(() => {
     setFilters({ category: [], price: [], rating: [] });
@@ -108,8 +114,24 @@ const ProductList = () => {
             <div className="lg:mx-8 md:text-lg text-sm flex items-center">
               <DropdownMenuDemo
                 items={[
-                  { name: "Low To High", onClick: () => {} },
-                  { name: "High To Low", onClick: () => {} },
+                  {
+                    name: "Newly added",
+                    onClick: () => {
+                      setSortBy("NEWLY");
+                    },
+                  },
+                  {
+                    name: "Low To High",
+                    onClick: () => {
+                      setSortBy("LTH");
+                    },
+                  },
+                  {
+                    name: "High To Low",
+                    onClick: () => {
+                      setSortBy("HTL");
+                    },
+                  },
                 ]}
                 title="Sort by"
               />

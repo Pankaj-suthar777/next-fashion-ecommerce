@@ -4,39 +4,18 @@ import {
   decreaseItemQty,
   removeFromCart,
 } from "@/app/redux/cartSlice";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const productData = [
-  {
-    img: "https://image.dhgate.com/0x0/f2/albu/g17/M01/09/E1/rBVa4mHx5IiAQrUTAAo-m2KQPew218.jpg",
-    id: 1,
-    quantity: 1,
-    price: 100,
-    total: 100,
-  },
-  {
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbTDgAmu5J8jSZKdAVyjsWACOeAHn5R6XmdFGLnNYBsgphaM5S4NUwPqJKAtqs4LJaW7o&usqp=CAU",
-    id: 2,
-    quantity: 1,
-    price: 100,
-    total: 100,
-  },
-  {
-    img: "https://img.ltwebstatic.com/images3_pi/2023/05/26/1685065381ad21a5fc681e35445c1c86fb6114de36_thumbnail_405x552.jpg",
-    id: 3,
-    quantity: 1,
-    price: 100,
-    total: 100,
-  },
-];
-
 const CartProducts = () => {
   const cart = useSelector((state: any) => state.cart);
+  const reversedCart: any = [...cart.cartItems].reverse();
   console.log(cart);
-  return (
+  return reversedCart.length > 0 ? (
     <div className="grid grid-cols-6 sm:mt-[80px] mt-[40px] overflow-x-auto overflow-y-auto min-w-[600px]">
       <div className="col-span-2 ">
         <p className="text-gray-500 lg:text-md text-sm">Product</p>
@@ -53,12 +32,26 @@ const CartProducts = () => {
       <div></div>
       <Separator className="col-span-6 my-8" />
 
-      {cart.cartItems.map((item, index) => (
+      {reversedCart.map((item, index) => (
         <React.Fragment key={index}>
           <CartProduct item={item} />
           <Separator className="col-span-6 my-8" />
         </React.Fragment>
       ))}
+    </div>
+  ) : (
+    <div className="flex mt-10 justify-center items-center">
+      <Alert variant="destructive" className="flex gap-5">
+        <i className="ri-information-line text-3xl"></i>
+        <div>
+          <AlertTitle>Cart is Empty</AlertTitle>
+          <Link href="/productlist">
+            <AlertDescription className="underline">
+              Start Shopping
+            </AlertDescription>
+          </Link>
+        </div>
+      </Alert>
     </div>
   );
 };
