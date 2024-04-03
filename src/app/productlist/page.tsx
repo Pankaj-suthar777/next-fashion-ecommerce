@@ -2,7 +2,7 @@
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import NavbarSearch from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { DropdownMenuDemo } from "@/components/DropDown";
 
@@ -33,8 +33,14 @@ import RatingFilter from "./_component/RatingFilter";
 import axios from "axios";
 import { ProductDetails } from "@/interfaces/Product";
 import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartSlice";
+import { useToast } from "@/components/ui/use-toast";
 
 const ProductList = () => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const { toast } = useToast();
   const [productData, setProductData] = useState<ProductDetails[]>();
   const [hoveredProductId, setHoveredProductId] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,20 +51,17 @@ const ProductList = () => {
     price: [],
     rating: [],
   });
-  const queryParams = new URLSearchParams(window.location.search);
-  const categoryParam = queryParams.get("category");
-  console.log(categoryParam);
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const categoryParam = queryParams.get("category");
     if (categoryParam) {
       setFilters((prevFilters: any) => ({
         ...prevFilters,
         category: [categoryParam],
       }));
     }
-  }, [categoryParam]);
-
-  console.log(filters);
+  }, []);
 
   const lastPostIndex = currentPage * itemsPerPage;
   const firstPostIndex = lastPostIndex - itemsPerPage;
@@ -72,11 +75,14 @@ const ProductList = () => {
       console.log(error.message);
     }
   };
+
   useEffect(() => {
     getData();
   }, [filters]);
 
-  const router = useRouter();
+  const handleClearFilters = useCallback(() => {
+    setFilters({ category: [], price: [], rating: [] });
+  }, []);
 
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
@@ -173,13 +179,7 @@ const ProductList = () => {
                     <DrawerClose className="w-full">
                       <div
                         className="w-full"
-                        onClick={() =>
-                          setFilters({
-                            category: [],
-                            price: [],
-                            rating: [],
-                          })
-                        }
+                        onClick={() => handleClearFilters()}
                       >
                         <span className="px-4 py-2 flex items-center border bg-black text-white w-full rounded-md justify-center">
                           Clear Filters
@@ -225,7 +225,11 @@ const ProductList = () => {
               {hoveredProductId === item._id && (
                 <Button
                   className="rounded-none mt-4 text-xs"
-                  onClick={() => console.log("hi")}
+                  onClick={() => {
+                    toast({ title: "Item added to cart" });
+                    dispatch(addToCart(item));
+                    router.push("/cart");
+                  }}
                 >
                   Add To Cart
                 </Button>

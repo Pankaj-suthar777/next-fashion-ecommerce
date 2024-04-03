@@ -37,6 +37,14 @@ export async function POST(request: NextRequest) {
 
     if (reqBody.limit) {
       products = await Product.find({}).limit(reqBody.limit).lean();
+    } else if (
+      reqBody?.filters?.category?.[0] === "all" &&
+      reqBody?.filters?.price
+    ) {
+      const { category, ...filtersWithoutCategory } = filtersProduct;
+      products = await Product.find(filtersWithoutCategory)
+        .sort({ createdAt: -1 })
+        .lean();
     } else if (reqBody?.filters?.category?.[0] === "all") {
       products = await Product.find({}).sort({ createdAt: -1 }).lean();
     } else if (reqBody.filters) {

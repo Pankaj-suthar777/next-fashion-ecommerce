@@ -17,7 +17,6 @@ const PriceFilter = ({
   setFilters: Function;
 }) => {
   const [selected, setSelected] = useState<string[]>([...filters.price]);
-  console.log(filters);
 
   // useEffect(() => {
   //   if (filters.price.length > 1) {

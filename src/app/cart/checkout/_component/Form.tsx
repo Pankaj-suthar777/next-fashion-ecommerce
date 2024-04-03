@@ -4,10 +4,29 @@ import { Separator } from "@/components/ui/separator";
 import React, { useState } from "react";
 import PaymentMethod from "./PaymentMethod";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import Link from "next/link";
 
 const Form = () => {
+  const { userInfo } = useSelector((state: any) => state.auth);
+
   const [selectedMethod, setSelectedMehod] = useState("credit");
-  return (
+  return !userInfo ? (
+    <div className="flex mt-10 justify-center items-center">
+      <Alert variant="destructive" className="flex gap-5">
+        <i className="ri-error-warning-line text-3xl"></i>
+        <div>
+          <Link href="/auth/signin">
+            <AlertTitle className="underline">Login Please!</AlertTitle>
+          </Link>
+          <AlertDescription>
+            You have to login in order to checkout
+          </AlertDescription>
+        </div>
+      </Alert>
+    </div>
+  ) : (
     <div className="lg:grid grid-cols-2 lg:gap-y-0 gap-y-8 flex flex-col gap-x-24 sm:mt-[70px] mt-[40px]">
       <div>
         <h2>Buyer Info</h2>

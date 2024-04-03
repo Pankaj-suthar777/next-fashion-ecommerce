@@ -5,7 +5,7 @@ export const addDecimals = (num) => {
 export const updateCart = (state) => {
   // calculate items price
   state.itemsPrice = addDecimals(
-    state.cartItems.reduce((acc, item) => acc + item.price, 0)
+    state.cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
   );
   // calculate shipping price (if order is over then free, else $10 shipping)
   state.shippingPrice = addDecimals(state.itemsPrice > 100 ? 0 : 10);
