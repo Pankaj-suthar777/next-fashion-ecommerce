@@ -22,25 +22,27 @@ const productData: Product[] = [
   },
 ];
 
-const ProductImages = ({ images }: { images: string }) => {
+const ProductImages = ({ images }: { images: string[] }) => {
   const [selectedImage, setSelectedImage] = useState<Product | undefined>(
-    productData.find((item) => item.id === 1)
+    images[0]
   );
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-12">
-      <img src={images} alt="" className="h-[280px] w-[280px] object-cover" />
+      <img
+        src={selectedImage}
+        alt=""
+        className="h-[280px] w-[280px] object-cover"
+      />
       <div className="flex gap-6">
-        {productData.map((item) => (
+        {images.map((item: any) => (
           <div
-            key={item.id}
-            className={`${
-              selectedImage?.id === item.id ? "border border-black" : ""
-            }`}
+            key={item}
+            className={`${selectedImage === item ? "border border-black" : ""}`}
             onClick={() => setSelectedImage(item)}
           >
             <img
-              src={item.img}
+              src={item}
               className="h-[100px] w-[100px] object-cover cursor-pointer"
             />
           </div>

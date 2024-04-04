@@ -76,7 +76,10 @@ const CartProduct = ({
           src={item.image}
           className="lg:h-[120px] lg:w-[120px] h-[70px] w-[70px] object-cover border border-gray-300"
         />
-        <p className="lg:text-lg text-sm font-medium">{item.name}</p>
+        <p className="lg:text-lg text-xs font-medium">
+          {item.name.slice(0, 10)}
+          {item.name.length > 10 ? "..." : ""}
+        </p>
       </div>
 
       <div className="flex items-center justify-center">

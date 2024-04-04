@@ -4,7 +4,7 @@ export interface ProductDetails {
   brand: string;
   price: number;
   countInStock: number;
-  image?: string | File;
+  image?: Array<string>;
   category?: string;
   _id?: string;
   createdAt?: string;

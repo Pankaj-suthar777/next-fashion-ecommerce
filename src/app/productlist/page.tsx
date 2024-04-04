@@ -234,12 +234,12 @@ const ProductList = () => {
               >
                 <img
                   className=" h-[150px] w-[150px] mb-2 object-cover"
-                  src={item.image}
+                  src={item.image[0]}
                 />
                 <div className="flex flex-col justify-center items-center mx-auto">
                   <span className="font-semibold text-center">
                     {item.name.slice(0, 10)}
-                    {item.name.length > 15 ? "..." : ""}
+                    {item.name.length > 10 ? "..." : ""}
                   </span>
                   <span className="text-xs mt-1">${item.price}</span>
                 </div>

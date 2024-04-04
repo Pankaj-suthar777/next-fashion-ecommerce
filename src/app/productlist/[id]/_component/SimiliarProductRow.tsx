@@ -15,26 +15,30 @@ const SimiliarProductRow = async ({ product }: { product: ProductDetails }) => {
       <div className="flex justify-between lg:col-span-4 col-span-2 mb-10">
         <h1 className="text-xl font-bold">Similiar Product</h1>
         <h1 className="font-semibold text-sm cursor-pointer">
-          <Link href="/productlist">View all</Link>
+          <Link href={`/productlist?category=${product.category}`}>
+            View all
+          </Link>
         </h1>
       </div>
       {similarProduct?.map((item) => (
-        <div
-          key={item.id}
-          className={`lg:p-4 p-2 cursor-pointer flex flex-col items-center justify-center lg:h-[340px] h-[270px]`}
-        >
-          <img
-            className=" h-[200px] w-[200px] mb-2 object-cover"
-            src={item.image}
-          />
-          <div className="flex flex-col justify-center items-center mx-auto">
-            <span className="font-semibold mt-2">
-              {item.name.slice(0, 10)}
-              {item.name.length > 15 ? "..." : ""}
-            </span>
-            <span className="text-md mt-3">${item.price}</span>
+        <Link href={`/productlist/${item._id}`}>
+          <div
+            key={item.id}
+            className={`lg:p-4 p-2 cursor-pointer flex flex-col items-center justify-center lg:h-[340px] h-[270px]`}
+          >
+            <img
+              className=" h-[200px] w-[200px] mb-2 object-cover"
+              src={item.image[0]}
+            />
+            <div className="flex flex-col justify-center items-center mx-auto">
+              <span className="font-semibold mt-2">
+                {item.name.slice(0, 10)}
+                {item.name.length > 10 ? "..." : ""}
+              </span>
+              <span className="text-md mt-3">${item.price}</span>
+            </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );
