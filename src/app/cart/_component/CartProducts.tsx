@@ -73,7 +73,7 @@ const CartProduct = ({
     <>
       <div className="col-span-2 flex items-center lg:gap-x-16 gap-x-6">
         <img
-          src={item.image}
+          src={item.image[0]}
           className="lg:h-[120px] lg:w-[120px] h-[70px] w-[70px] object-cover border border-gray-300"
         />
         <p className="lg:text-lg text-xs font-medium">
