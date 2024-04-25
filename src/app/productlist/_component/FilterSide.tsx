@@ -8,7 +8,10 @@ const FilterSide = ({
   filters,
   setFilters,
 }: {
-  filters: Object;
+  filters: {
+    category: string[];
+    price: string[];
+  };
   setFilters: Function;
 }) => {
   return (

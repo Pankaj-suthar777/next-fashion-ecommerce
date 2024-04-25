@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { connectDB } from "@/config/dbConfig";
 import { ProductDetails } from "@/interfaces/Product";
 import Product from "@/models/productModal";
@@ -21,10 +20,13 @@ const NewArrivalsRow = async () => {
       </div>
       <div className="grid sm:grid-cols-4 grid-cols-3 grid-rows-2 gap-x-2 gap-y-2 h-[500px]">
         <div className="flex bg-slate-100 sm:p-4 p-1 lg:col-span-2 col-span-4 items-center row-span-2">
-          <img
-            className="max-h-[300px] sm:w-fit w-[50%] "
-            src={products[0].image}
-          />
+          {typeof products[0].image === "string" && (
+            <img
+              className="max-h-[300px] sm:w-fit w-[50%] "
+              src={products[0].image}
+            />
+          )}
+
           <div className="flex flex-col justify-center items-center mx-auto">
             <span className="font-semibold sm:text-xl text-sm">
               {products[0].name}
@@ -38,10 +40,13 @@ const NewArrivalsRow = async () => {
           <Link href={`/productlist/${product._id}`}>
             <div className="h-full w-full">
               <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
-                <img
-                  className=" h-[90px] w-[90px] mb-2 object-cover"
-                  src={product.image}
-                />
+                {typeof product.image === "string" && (
+                  <img
+                    className=" h-[90px] w-[90px] mb-2 object-cover"
+                    src={product.image}
+                  />
+                )}
+
                 <div className="flex flex-col justify-center items-center mx-auto">
                   <span className="font-semibold sm:text-lg text-xs text-center">
                     {product.name.slice(0, 10)}
@@ -57,10 +62,13 @@ const NewArrivalsRow = async () => {
         <Link href={`/productlist/${products[4]._id}`}>
           <div className="sm:block hidden h-full w-full">
             <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
-              <img
-                className="h-[90px] w-[90px] mb-2 object-cover"
-                src={products[4]?.image}
-              />
+              {typeof products[4]?.image === "string" && (
+                <img
+                  className=" h-[90px] w-[90px] mb-2 object-cover"
+                  src={products[4]?.image}
+                />
+              )}
+
               <div className="flex flex-col justify-center items-center mx-auto">
                 <span className="font-semibold sm:text-lg text-xs text-center">
                   {products[4]?.name}

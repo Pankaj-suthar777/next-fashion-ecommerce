@@ -5,7 +5,6 @@ import "remixicon/fonts/remixicon.css";
 import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 import Provider from "./Provider";
-import { ThemeProvider } from "@/providers/ThemeProvider";
 
 const inter = Poppins({
   subsets: ["latin"],

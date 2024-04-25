@@ -32,7 +32,7 @@ const CartProducts = () => {
       <div></div>
       <Separator className="col-span-6 my-8" />
 
-      {reversedCart.map((item, index) => (
+      {reversedCart.map((item: any, index: number) => (
         <React.Fragment key={index}>
           <CartProduct item={item} />
           <Separator className="col-span-6 my-8" />

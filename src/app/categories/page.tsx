@@ -1,8 +1,5 @@
 "use client";
 import React from "react";
-import PriceFilter from "../productlist/_component/PriceFilter";
-import { Separator } from "@/components/ui/separator";
-import RatingFilter from "../productlist/_component/RatingFilter";
 import NavbarSearch from "@/components/Navbar";
 import { BreadcrumbDemo } from "@/components/BreadcrumbComponent";
 import CategoriePageComponent from "./_component/CategoriePageComponent";

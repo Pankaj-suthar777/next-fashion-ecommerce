@@ -29,7 +29,10 @@ const CategoriesFilter = ({
   filters,
   setFilters,
 }: {
-  filters: Object;
+  filters: {
+    category: string[];
+    price: string[];
+  };
   setFilters: Function;
 }) => {
   const [viewMore, setViewMore] = useState(false);
@@ -51,7 +54,7 @@ const CategoriesFilter = ({
     setViewMore(!viewMore);
   };
 
-  const handleCategoryClick = (id) => {
+  const handleCategoryClick = (id: number) => {
     setSelectedCate(id);
   };
 

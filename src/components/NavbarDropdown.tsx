@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/app/redux/authSlice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import { ModeToggle } from "./ModeToogle";
+// import { ModeToggle } from "./ModeToogle";
 
 const NavbarDropdown = () => {
   const dispatch = useDispatch();

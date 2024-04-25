@@ -3,8 +3,6 @@ import NavbarSearch from "@/components/Navbar";
 import React from "react";
 import ProgressCheckout from "./_component/ProgressCheckout";
 import CartProducts from "./_component/CartProducts";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import CartPayAndPrice from "./_component/CartPayAndPrice";
 
 const page = () => {

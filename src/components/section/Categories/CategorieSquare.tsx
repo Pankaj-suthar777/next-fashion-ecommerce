@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const CategorieSquare = ({
@@ -15,7 +16,8 @@ const CategorieSquare = ({
   selectedCategories: string;
 }) => {
   return (
-    <div
+    <Link
+      href={`/productlist?category=${item.name}`}
       className={`flex justify-center items-center ${
         selectedCategories === item.name ? "bg-gray-200 " : "bg-white"
       }  h-[80px] lg:h-[100px] text-black cursor-pointer`}
@@ -25,7 +27,7 @@ const CategorieSquare = ({
         src={item.img}
         className={`sm:h-12 sm:w-12 h-8 w-8 text-white  bg-transparent ${classNameImage}`}
       />
-    </div>
+    </Link>
   );
 };
 

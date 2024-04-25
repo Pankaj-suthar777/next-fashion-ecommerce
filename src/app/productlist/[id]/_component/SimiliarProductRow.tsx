@@ -28,7 +28,7 @@ const SimiliarProductRow = async ({ product }: { product: ProductDetails }) => {
           >
             <img
               className=" h-[200px] w-[200px] mb-2 object-cover"
-              src={item.image[0]}
+              src={item.image[0] || "no"}
             />
             <div className="flex flex-col justify-center items-center mx-auto">
               <span className="font-semibold mt-2">

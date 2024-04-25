@@ -1,18 +1,20 @@
-import mongoose from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-const reviewSchema = new mongoose.Schema(
+export interface Review extends Document {
+  user: mongoose.Schema.Types.ObjectId;
+  rating: number;
+  comment: string;
+}
+
+const reviewSchema: Schema<Review> = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
     },
-    name: {
-      type: String,
-      required: true,
-    },
     rating: {
-      type: String,
+      type: Number,
       required: true,
     },
     comment: {
@@ -23,13 +25,21 @@ const reviewSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const productSchema = new mongoose.Schema(
+export interface Product extends Document {
+  name: string;
+  image: Array<string | null>;
+  brand: string;
+  category: string;
+  description: string;
+  reviews: Review[];
+  rating: number;
+  numReviews: number;
+  price: number;
+  countInStock: number;
+}
+
+const productSchema: Schema<Product> = new mongoose.Schema(
   {
-    // user: {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   required: true,
-    //   ref: "User",
-    // },
     name: {
       type: String,
       required: true,

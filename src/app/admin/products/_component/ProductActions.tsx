@@ -3,13 +3,12 @@ import React, { useState } from "react";
 import ProductTable from "./ProductTable";
 import ProductForm from "./ProductForm";
 import { ProductDetails } from "@/interfaces/Product";
-import { useToast } from "@/components/ui/use-toast";
-import axios from "axios";
+//import { useToast } from "@/components/ui/use-toast";
 
 const ProductActions = ({ products }: { products: ProductDetails[] }) => {
-  const { toast } = useToast();
+  // const { toast } = useToast();
   const [open, setOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductDetails>();
 
   return (

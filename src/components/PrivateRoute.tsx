@@ -1,8 +1,8 @@
 "use client";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
-import Spinner from "./Spinner";
+//import { useRouter } from "next/navigation";
+import React from "react";
+// import { useSelector } from "react-redux";
+// import Spinner from "./Spinner";
 
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   // const router = useRouter();

@@ -23,9 +23,7 @@ const productData: Product[] = [
 ];
 
 const ProductImages = ({ images }: { images: string[] }) => {
-  const [selectedImage, setSelectedImage] = useState<Product | undefined>(
-    images[0]
-  );
+  const [selectedImage, setSelectedImage] = useState(images[0]);
 
   return (
     <div className="flex h-full flex-col items-center justify-center gap-y-12">

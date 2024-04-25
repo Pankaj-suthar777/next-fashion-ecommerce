@@ -33,12 +33,14 @@ const Form = () => {
         <Separator className="my-8" />
         <div className="space-y-8 w-full">
           <InputWithLabel
+            value="no"
             id="FullName"
             label="Full Name"
             placeholder="Full Name"
             type="text"
           />
           <InputWithLabel
+            value="no"
             id="address"
             label="Address"
             placeholder="Address"
@@ -46,6 +48,7 @@ const Form = () => {
           />
 
           <InputWithLabel
+            value="no"
             id="city"
             label="City"
             placeholder="City"
@@ -54,6 +57,7 @@ const Form = () => {
           <div className="grid grid-cols-3 gap-6">
             <div className="col-span-2">
               <InputWithLabel
+                value="no"
                 id="state"
                 label="State"
                 placeholder="State"
@@ -61,6 +65,7 @@ const Form = () => {
               />
             </div>
             <InputWithLabel
+              value={78}
               id="zip"
               label="Zip Code"
               placeholder="Zip Code"
@@ -83,6 +88,7 @@ const Form = () => {
               id="nameoncard"
               placeholder=""
               type="text"
+              value="no"
             />
             <div className="grid grid-cols-4 gap-x-6 gap-y-8">
               <div className="col-span-3">
@@ -91,10 +97,12 @@ const Form = () => {
                   id="cardnumber"
                   placeholder=""
                   type="number"
+                  value={787}
                 />
               </div>
               <div className="col-span-1">
                 <InputWithLabel
+                  value={8787}
                   label="CVV"
                   id="cvv"
                   placeholder=""
@@ -103,6 +111,7 @@ const Form = () => {
               </div>
               <div className="col-span-2">
                 <InputWithLabel
+                  value="june"
                   label="Month"
                   id="month"
                   placeholder="Select Month"
@@ -111,6 +120,7 @@ const Form = () => {
               </div>
               <div className="col-span-2">
                 <InputWithLabel
+                  value={67}
                   label="Year"
                   id="year"
                   placeholder="Enter Year"

@@ -17,6 +17,7 @@ interface Props {
 const page = async ({ params }: Props) => {
   const productData = await Product.findById(params.id);
   const product: ProductDetails = JSON.parse(JSON.stringify(productData));
+
   return (
     <div className="w-screen flex flex-col justify-center mb-[40px] items-center ">
       <div className="xl:w-[80%] px-4 sm:px-10 md:px-12 mb-8">
@@ -27,7 +28,7 @@ const page = async ({ params }: Props) => {
           />
         </div>
         <div className="grid lg:grid-cols-2 grid-cols-1 lg:mt-[60px] mt-0">
-          <ProductImages images={product.image} />
+          <ProductImages images={product.image || []} />
           <div>
             <div className="lg:block hidden">
               <BreadcrumbDemo

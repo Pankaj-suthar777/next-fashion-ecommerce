@@ -428,7 +428,9 @@ const ProductForm = ({
       category: selectedProduct?.category || "",
       countInStock: selectedProduct?.countInStock || 0,
     });
-    setUploadedImage(selectedProduct?.image);
+    if (selectedProduct?.image) {
+      setUploadedImage(selectedProduct?.image);
+    }
   }, [selectedProduct]);
 
   const formRef = useRef<HTMLFormElement>(null);

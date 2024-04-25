@@ -3,7 +3,6 @@ import UserModel from "@/models/userModal";
 import { NextRequest, NextResponse } from "next/server";
 connectDB();
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 
 export async function POST(request: NextRequest) {
   const reqBody = await request.json();

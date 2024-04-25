@@ -9,7 +9,6 @@ import { DropdownMenuDemo } from "@/components/DropDown";
 import {
   Pagination,
   PaginationContent,
-  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
@@ -21,7 +20,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -92,7 +90,7 @@ const ProductList = () => {
 
   return (
     <div className="w-screen flex flex-col justify-center mb-[100px] items-center">
-      <div className="xl:w-[80%] px-4 xl:px-12 mb-8">
+      <div className="xl:w-[85%] px-4 xl:px-12 mb-8">
         <NavbarSearch type="search" />
         <div className="flex flex-col gap-y-8 mt-10 ">
           <BreadcrumbDemo
@@ -224,7 +222,7 @@ const ProductList = () => {
               className={`p-4 cursor-pointer flex flex-col items-center justify-center h-[280px]`}
               whileHover={{ scale: 1.05 }}
               transition={{ duration: 0.3 }} // Adjust the duration here
-              onMouseEnter={() => setHoveredProductId(item._id)}
+              onMouseEnter={() => setHoveredProductId(item._id!)}
               onMouseLeave={() => setHoveredProductId(null)}
             >
               <div
@@ -234,7 +232,7 @@ const ProductList = () => {
               >
                 <img
                   className=" h-[150px] w-[150px] mb-2 object-cover"
-                  src={item.image[0]}
+                  src={item.image![0]}
                 />
                 <div className="flex flex-col justify-center items-center mx-auto">
                   <span className="font-semibold text-center">
