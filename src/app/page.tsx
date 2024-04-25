@@ -1,4 +1,5 @@
 import { CarouselHome } from "@/components/CarouselHome";
+import ShiftingCountdown from "@/components/Countdown";
 import NavbarSearch from "@/components/Navbar";
 import CategoriesRow from "@/components/section/Categories/CategoriesRow";
 import FeaturedRow from "@/components/section/Featured/FeaturedRow";
@@ -17,6 +18,10 @@ export default function Home() {
 
         <div className="xl:w-[75%] xl:px-0 px-4 w-full sm:mt-[20px] mt-[10px] space-y-8 sm:space-y-16 ">
           <CategoriesRow />
+          <div>
+            <h1 className="text-center text-2xl mb-5">Sales Start's In</h1>{" "}
+            <ShiftingCountdown />
+          </div>
           <NewArrivalsRow />
           <FeaturedRow />
           <WhyChooseUs />

@@ -58,12 +58,10 @@ const NewArrivalsRow = async () => {
         <Link href={`/productlist/${products[4]._id}`}>
           <div className="sm:block hidden h-full w-full">
             <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
-              {typeof products[4]?.image === "string" && (
-                <img
-                  className=" h-[90px] w-[90px] mb-2 object-cover"
-                  src={products[4]?.image}
-                />
-              )}
+              <img
+                className=" h-[90px] w-[90px] mb-2 object-cover"
+                src={products[4]?.image}
+              />
 
               <div className="flex flex-col justify-center items-center mx-auto">
                 <span className="font-semibold sm:text-lg text-xs text-center">

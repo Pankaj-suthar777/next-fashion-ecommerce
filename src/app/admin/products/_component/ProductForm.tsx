@@ -726,6 +726,8 @@ const ProductForm = ({
               onClick={() => {
                 setOpen(false);
                 setSelectedProduct(null);
+                setImages([]);
+                setUploadedImage([]);
               }}
             >
               <span className="px-4 py-2 flex gap-2 items-center border border-black text-black sm:w-[200px] w-[150px] rounded-md justify-center">

@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import CategorieSquare from "./CategorieSquare";
 import Link from "next/link";
+import { SalesPopup } from "@/components/SalesPop";
 
 const CategoriesData = [
   {
@@ -31,9 +32,11 @@ const CategoriesData = [
 ];
 
 const CategoriesRow = () => {
+  const [open, setOpen] = useState(true);
   const [selectedCategories, setSelectedCategories] = useState("");
   return (
     <>
+      <SalesPopup isOpen={open} setIsOpen={setOpen} />
       <div className="flex justify-between mb-10">
         <h1 className="sm:text-xl text-sm font-bold">Categories</h1>
         <h1 className="font-semibold sm:text-sm cursor-pointer text-xs">

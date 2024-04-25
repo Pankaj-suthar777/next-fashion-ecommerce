@@ -9,8 +9,6 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import Link from "next/link";
 
 const Form = () => {
-  const { userInfo } = useSelector((state: any) => state.auth);
-
   const [selectedMethod, setSelectedMehod] = useState("credit");
   return !userInfo ? (
     <div className="flex mt-10 justify-center items-center">
