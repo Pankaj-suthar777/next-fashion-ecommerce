@@ -60,7 +60,7 @@ const ProductList = () => {
         category: [categoryParam],
       }));
     }
-  }, [window.location.search]);
+  }, []);
 
   const lastPostIndex = currentPage * itemsPerPage;
   const firstPostIndex = lastPostIndex - itemsPerPage;
