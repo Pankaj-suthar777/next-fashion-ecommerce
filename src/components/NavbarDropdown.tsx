@@ -9,18 +9,13 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
-import { logout } from "@/app/redux/authSlice";
-import { useDispatch } from "react-redux";
 import axios from "axios";
 // import { ModeToggle } from "./ModeToogle";
 
 const NavbarDropdown = () => {
-  const dispatch = useDispatch();
   const router = useRouter();
 
   async function logoutHandler() {
-    dispatch(logout());
-    router.push("/auth/signin");
     await axios.post("/api/auth/logout");
   }
   return (

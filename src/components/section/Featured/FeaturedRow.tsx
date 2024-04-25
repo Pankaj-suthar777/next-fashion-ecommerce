@@ -40,12 +40,10 @@ const FeaturedRow = () => {
             } flex flex-col items-center justify-center sm:h-[330px] h-[270px] cursor-pointer`}
             onClick={() => setSelected(item._id!)}
           >
-            {typeof item.image === "string" && (
-              <img
-                className="h-[160px] w-[160px] mb-2 object-cover"
-                src={item.image}
-              />
-            )}
+            <img
+              className="h-[160px] w-[160px] mb-2 object-cover"
+              src={item.image![0]}
+            />
 
             <div className="flex flex-col justify-center items-center mx-auto">
               <span className="font-semibold sm:text-lg lg:text-lg text-xs text-center">
