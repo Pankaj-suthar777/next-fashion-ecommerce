@@ -21,6 +21,7 @@ const NewArrivalsRow = async () => {
       <div className="grid sm:grid-cols-4 grid-cols-3 grid-rows-2 gap-x-2 gap-y-2 h-[500px]">
         <div className="flex bg-slate-100 sm:p-4 p-1 lg:col-span-2 col-span-4 items-center row-span-2">
           <img
+            alt=""
             className="max-h-[300px] sm:w-fit w-[50%] "
             src={products[0].image![0]}
           />
@@ -34,11 +35,12 @@ const NewArrivalsRow = async () => {
           </div>
         </div>
 
-        {products.slice(1, -1).map((product) => (
-          <Link href={`/productlist/${product._id}`}>
+        {products.slice(1, -1).map((product, i) => (
+          <Link href={`/productlist/${product._id}`} key={i}>
             <div className="h-full w-full">
               <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
                 <img
+                  alt=""
                   className=" h-[90px] w-[90px] mb-2 object-cover"
                   src={product.image![0]}
                 />
@@ -59,8 +61,9 @@ const NewArrivalsRow = async () => {
           <div className="sm:block hidden h-full w-full">
             <div className="p-4 bg-slate-100 flex flex-col items-center justify-center h-full w-full">
               <img
+                alt=""
                 className=" h-[90px] w-[90px] mb-2 object-cover"
-                src={products[4]?.image}
+                src={products[4]?.image?.[0] || ""}
               />
 
               <div className="flex flex-col justify-center items-center mx-auto">

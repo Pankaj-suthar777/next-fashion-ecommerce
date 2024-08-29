@@ -19,7 +19,7 @@ const page = async ({ params }: Props) => {
   const product: ProductDetails = JSON.parse(JSON.stringify(productData));
 
   return (
-    <div className="w-screen flex flex-col justify-center mb-[40px] items-center ">
+    <div className="flex flex-col justify-center mb-[40px] items-center ">
       <div className="xl:w-[80%] px-4 sm:px-10 md:px-12 mb-8">
         <NavbarSearch type="search" />
         <div className="lg:hidden block mt-[30px] pb-[40px]">

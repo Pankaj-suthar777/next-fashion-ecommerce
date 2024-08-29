@@ -6,15 +6,14 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Image from "next/image";
 
 const CartProducts = () => {
   const cart = useSelector((state: any) => state.cart);
   const reversedCart: any = [...cart.cartItems].reverse();
-  console.log(cart);
+
   return reversedCart.length > 0 ? (
-    <div className="grid grid-cols-6 sm:mt-[80px] mt-[40px] overflow-x-auto overflow-y-auto min-w-[600px]">
-      <div className="col-span-2 ">
+    <div className="grid grid-cols-6 sm:mt-[80px] mt-[40px] overflow-x-auto overflow-y-auto ">
+      <div className="col-span-2">
         <p className="text-gray-500 lg:text-md text-sm">Product</p>
       </div>
       <div className="flex justify-center items-center">
@@ -26,7 +25,6 @@ const CartProducts = () => {
       <div className="flex justify-center items-center">
         <p className="text-gray-500 lg:text-md text-sm">Total</p>
       </div>
-      <div></div>
       <Separator className="col-span-6 my-8" />
 
       {reversedCart.map((item: any, index: number) => (
