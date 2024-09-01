@@ -1,7 +1,14 @@
+"use client";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import React from "react";
 
 const Footer = () => {
+  const pathname = usePathname();
+  const isAdminRoute = pathname.startsWith("/admin");
+  if (isAdminRoute) {
+    return null;
+  }
   return (
     <div className="flex flex-col p-12 bg-slate-700 ">
       <div className="grid grid-cols-4">

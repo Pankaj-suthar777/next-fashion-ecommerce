@@ -33,7 +33,17 @@ export const TextParallaxContentExample = () => {
 
 const IMG_PADDING = 12;
 
-const TextParallaxContent = ({ imgUrl, subheading, heading, children }) => {
+const TextParallaxContent = ({
+  imgUrl,
+  subheading,
+  heading,
+  children,
+}: {
+  imgUrl: string;
+  subheading: string;
+  heading: string;
+  children: React.ReactNode;
+}) => {
   return (
     <div
       style={{
@@ -50,7 +60,7 @@ const TextParallaxContent = ({ imgUrl, subheading, heading, children }) => {
   );
 };
 
-const StickyImage = ({ imgUrl }) => {
+const StickyImage = ({ imgUrl }: { imgUrl: string }) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -83,7 +93,13 @@ const StickyImage = ({ imgUrl }) => {
   );
 };
 
-const OverlayCopy = ({ subheading, heading }) => {
+const OverlayCopy = ({
+  subheading,
+  heading,
+}: {
+  subheading: string;
+  heading: string;
+}) => {
   const targetRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -127,7 +143,7 @@ const ExampleContent = () => (
         reiciendis blanditiis aliquam aut fugit sint.
       </p>
       <button className="w-full rounded bg-neutral-900 px-9 py-4 text-xl text-white transition-colors hover:bg-neutral-700 md:w-fit">
-        Learn more <FiArrowUpRight className="inline" />
+        Learn more <FiArrowUpRight />
       </button>
     </div>
   </div>
