@@ -19,11 +19,11 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { signInSchema } from "@/schemas/signinSchema";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { PasswordInput } from "@/components/custom/password-input";
 
 const SignIn = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof signInSchema>>({
@@ -34,8 +34,11 @@ const SignIn = () => {
     },
   });
 
+  const {
+    formState: { isLoading },
+  } = form;
+
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    setLoading(true);
     const result = await signIn("credentials", {
       redirect: false,
       identifier: data.email,
@@ -56,7 +59,6 @@ const SignIn = () => {
         });
       }
     }
-    setLoading(false);
     if (result?.url) {
       router.replace("/");
     }
@@ -87,9 +89,9 @@ const SignIn = () => {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Username</FormLabel>
+                        <FormLabel>Email</FormLabel>
                         <FormControl>
-                          <Input placeholder="Enter username" {...field} />
+                          <Input placeholder="Enter email" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -104,9 +106,8 @@ const SignIn = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
+                          <PasswordInput
                             placeholder="Enter password"
-                            type="password"
                             {...field}
                           />
                         </FormControl>
@@ -116,8 +117,14 @@ const SignIn = () => {
                   />
                 </div>
                 <div className="mt-10 w-full">
-                  <Button className="w-full py-6 bg-purple-700 flex justify-center items-center gap-2">
-                    {loading && <Loader />}Login
+                  <Button
+                    disabled={isLoading}
+                    className={cn(
+                      "w-full py-6 bg-purple-700 flex justify-center items-center gap-2",
+                      { "bg-purple-500": isLoading }
+                    )}
+                  >
+                    {isLoading && <Loader />}Login
                   </Button>
                 </div>
               </div>

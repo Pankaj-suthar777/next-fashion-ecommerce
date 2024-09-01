@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
+import { PasswordInput } from "@/components/custom/password-input";
 
 const Signup = () => {
   const [loading, setLoading] = useState(false);
@@ -109,9 +110,8 @@ const Signup = () => {
                       <FormItem>
                         <FormLabel>Password</FormLabel>
                         <FormControl>
-                          <Input
+                          <PasswordInput
                             placeholder="Enter password"
-                            type="password"
                             {...field}
                           />
                         </FormControl>

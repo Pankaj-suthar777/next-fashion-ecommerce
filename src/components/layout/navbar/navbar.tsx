@@ -1,7 +1,6 @@
 "use client";
 import React, { useState } from "react";
 import InputWithButton from "../input-with-button";
-// import { Button } from "./ui/button";
 import NavTabs from "./nav-tabs";
 import Link from "next/link";
 import NavbarDropdown from "./navbar-dropdown";
@@ -18,10 +17,15 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "../../ui/input";
 import NotificationDropDown from "../../NotificationDropDown";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 type type = "home" | "search";
 
 const NavbarSearch = ({ type }: { type: type }) => {
   const [isAlertDialogOpen, setIsAlertDialogOpen] = useState(false);
+  const router = useRouter();
+  const { data } = useSession();
 
   const handleAlertDialogClose = () => {
     setIsAlertDialogOpen(false);
@@ -29,6 +33,7 @@ const NavbarSearch = ({ type }: { type: type }) => {
 
   const handleAlertDialogOpen = () => {
     setIsAlertDialogOpen(true);
+    router.push("/auth/signin");
   };
 
   return (
@@ -86,14 +91,23 @@ const NavbarSearch = ({ type }: { type: type }) => {
             </AlertDialogContent>
           </AlertDialog>
 
-          <Link href="/cart">
-            <i className="ri-shopping-cart-2-line text-xl text-black cursor-pointer"></i>
-          </Link>
+          {!data?.user ? (
+            <Button
+              onClick={() => router.push("/auth/signin")}
+              className="rounded-none text-xs cursor-pointer"
+            >
+              Login
+            </Button>
+          ) : (
+            <>
+              <Link href="/cart">
+                <i className="ri-shopping-cart-2-line text-xl text-black cursor-pointer"></i>
+              </Link>
 
-          <NotificationDropDown />
-
-          {/* <Button className="rounded-none text-xs cursor-pointer">Login</Button> */}
-          <NavbarDropdown />
+              <NotificationDropDown />
+              <NavbarDropdown />
+            </>
+          )}
         </div>
       </div>
     </nav>

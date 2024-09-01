@@ -10,13 +10,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-// import { ModeToggle } from "./ModeToogle";
+import { signOut } from "next-auth/react";
 
 const NavbarDropdown = () => {
   const router = useRouter();
 
   async function logoutHandler() {
-    await axios.post("/api/auth/logout");
+    signOut();
   }
   return (
     <DropdownMenu>
@@ -41,22 +41,11 @@ const NavbarDropdown = () => {
         </DropdownMenuItem>
         <DropdownMenuItem
           className="cursor-pointer"
-          onClick={() => router.push("/admin/orders")}
+          onClick={() => router.push("/orders")}
         >
           Orders
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={() => router.push("/admin/report")}
-        >
-          Report
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="cursor-pointer"
-          onClick={() => router.push("/admin/users")}
-        >
-          Users
-        </DropdownMenuItem>
+
         <DropdownMenuSeparator />
         <DropdownMenuItem
           className="cursor-pointer"
